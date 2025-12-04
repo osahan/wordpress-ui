@@ -1,6 +1,6 @@
 {
   "name": "@osahan/wordpress-ui",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "WordPress UI theme for react-jsonschema-form",
   "license": "MIT",
   "repository": {
@@ -13,8 +13,15 @@
   "homepage": "https://github.com/osahan/wordpress-ui#readme",
   "main": "dist/index.js",
   "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "style": "@wordpress/components/build-style/style.css",
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
@@ -27,8 +34,8 @@
   },
   "devDependencies": {
     "@rjsf/core": "^5.0.0",
-    "@rjsf/react-bootstrap": "^6.1.2",
     "@rjsf/utils": "^5.0.0",
+    "@rjsf/validator-ajv8": "^6.1.2",
     "@testing-library/jest-dom": "^6.1.5",
     "@testing-library/react": "^14.1.2",
     "@testing-library/user-event": "^14.5.1",
