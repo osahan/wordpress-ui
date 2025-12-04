@@ -20,6 +20,7 @@
       "@osahan/wordpress-ui": ["../src"]
     }
   },
-  "include": ["."],
+  "include": ["*.tsx", "*.ts"],
+  "exclude": ["node_modules", "vite.config.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
