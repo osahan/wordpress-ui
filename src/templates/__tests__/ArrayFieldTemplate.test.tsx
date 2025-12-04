@@ -4,17 +4,14 @@ import userEvent from '@testing-library/user-event';
 import ArrayFieldTemplate from '../ArrayFieldTemplate';
 
 describe('ArrayFieldTemplate', () => {
-  const createItem = (index: number) => ({
-    index,
-    children: <div data-testid={`item-${index}`}>Item {index}</div>,
-    hasRemove: true,
-    onDropIndexClick: jest.fn((idx) => () => jest.fn()),
-  });
+  // In v6, items is an array of ReactElements
+  const createItem = (index: number) => (
+    <div key={index} data-testid={`item-${index}`}>Item {index}</div>
+  );
 
   const defaultProps = {
     canAdd: true,
     disabled: false,
-    idSchema: { $id: 'test-array' },
     items: [createItem(0), createItem(1)],
     onAddClick: jest.fn(),
     readonly: false,
@@ -22,7 +19,6 @@ describe('ArrayFieldTemplate', () => {
     schema: { type: 'array', title: 'Test Array', items: { type: 'string' } },
     title: 'Test Array',
     uiSchema: {},
-    formData: [],
   };
 
   beforeEach(() => {
@@ -52,8 +48,11 @@ describe('ArrayFieldTemplate', () => {
 
   it('displays required indicator when required', () => {
     render(<ArrayFieldTemplate {...defaultProps} required />);
-    expect(screen.getByText('Test Array')).toBeInTheDocument();
-    expect(screen.getByText('*')).toBeInTheDocument();
+    // In v6, PanelBody title is a string that includes asterisk when required
+    // Check for the title in the panel (not the button text)
+    const panelTitle = screen.getByText('Test Array *');
+    expect(panelTitle).toBeInTheDocument();
+    expect(screen.getByText(/\*/)).toBeInTheDocument();
   });
 
   it('renders all items', () => {
@@ -82,20 +81,8 @@ describe('ArrayFieldTemplate', () => {
     expect(handleAdd).toHaveBeenCalled();
   });
 
-  it('displays remove button for each item when hasRemove is true', () => {
-    render(<ArrayFieldTemplate {...defaultProps} />);
-    const removeButtons = screen.getAllByText('Remove');
-    expect(removeButtons).toHaveLength(2);
-  });
-
-  it('does not display remove button when hasRemove is false', () => {
-    const itemsWithoutRemove = [
-      { ...createItem(0), hasRemove: false },
-      { ...createItem(1), hasRemove: false },
-    ];
-    render(<ArrayFieldTemplate {...defaultProps} items={itemsWithoutRemove} />);
-    expect(screen.queryByText('Remove')).not.toBeInTheDocument();
-  });
+  // Note: Remove button functionality is now handled by ArrayFieldItemTemplate in v6
+  // The items prop is now an array of ReactElements, not objects with hasRemove property
 
   it('uses custom add button text from uiSchema', () => {
     render(

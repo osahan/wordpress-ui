@@ -2,10 +2,8 @@
 // Import WordPress components styles to ensure widgets match WordPress admin styling
 import '@wordpress/components/build-style/style.css';
 
-import type {
-  ThemeProps,
-  WrapIfAdditionalTemplateProps,
-} from '@rjsf/core';
+import { withTheme, type ThemeProps } from '@rjsf/core';
+import type { FormProps } from '@rjsf/core';
 
 // Import WordPress-based widgets
 import BaseInput from './widgets/BaseInput';
@@ -124,6 +122,12 @@ export const wordpressUITheme: ThemeProps = {
   },
 };
 
-// Default export for convenience
+// Create themed Form component using withTheme HOC
+export const WordPressUIForm = withTheme(wordpressUITheme);
+
+// Export theme object for advanced usage
 export default wordpressUITheme;
+
+// Re-export types for convenience
+export type { FormProps } from '@rjsf/core';
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import type { FieldProps } from '@rjsf/core';
+import type { FieldProps } from '@rjsf/utils';
 
 const TitleField: React.FC<FieldProps> = ({ title, id }) => {
   if (!title) {

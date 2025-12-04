@@ -29,13 +29,15 @@
     "demo:build": "cd demo && npm install --legacy-peer-deps && npm run build"
   },
   "peerDependencies": {
+    "@rjsf/core": "^6.1.2",
+    "@rjsf/utils": "^6.1.2",
     "@wordpress/components": "^19.0.0 || ^20.0.0",
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
     "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
   },
   "devDependencies": {
-    "@rjsf/core": "^5.0.0",
-    "@rjsf/utils": "^5.0.0",
+    "@rjsf/core": "^6.1.2",
+    "@rjsf/utils": "^6.1.2",
     "@rjsf/validator-ajv8": "^6.1.2",
     "@testing-library/jest-dom": "^6.1.5",
     "@testing-library/react": "^14.1.2",
@@ -83,6 +85,10 @@
       "jsx",
       "json",
       "node"
-    ]
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!(@rjsf|@x0k)/)"
+    ],
+    "extensionsToTreatAsEsm": [".ts", ".tsx"]
   }
 }

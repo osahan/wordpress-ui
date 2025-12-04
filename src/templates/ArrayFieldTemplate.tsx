@@ -1,11 +1,10 @@
 import React from 'react';
 import { Button, Panel, PanelBody } from '@wordpress/components';
-import type { ArrayFieldTemplateProps } from '@rjsf/core';
+import type { ArrayFieldTemplateProps } from '@rjsf/utils';
 
 const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
   canAdd,
   disabled,
-  idSchema,
   items,
   onAddClick,
   readonly,
@@ -13,7 +12,6 @@ const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
   schema,
   title,
   uiSchema,
-  formData,
 }) => {
   // Get title from uiSchema or schema
   const arrayTitle = title || uiSchema?.['ui:title'] || schema.title || '';
@@ -26,25 +24,11 @@ const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
 
   const content = (
     <>
-      {items &&
-        items.map((element) => (
-          <div key={element.index} className="rjsf-array-field-item">
-            <div className="rjsf-array-field-item-content">{element.children}</div>
-            {element.hasRemove && (
-              <div className="rjsf-array-field-item-actions">
-                <Button
-                  variant="secondary"
-                  isDestructive
-                  onClick={element.onDropIndexClick(element.index)}
-                  disabled={disabled || readonly}
-                  className="rjsf-array-field-item-remove"
-                >
-                  Remove
-                </Button>
-              </div>
-            )}
-          </div>
-        ))}
+      {items && items.map((item, index) => (
+        <div key={index} className="rjsf-array-field-item">
+          {item}
+        </div>
+      ))}
       {canAdd && (
         <div className="rjsf-array-field-add">
           <Button
@@ -64,12 +48,7 @@ const ArrayFieldTemplate: React.FC<ArrayFieldTemplateProps> = ({
     return (
       <Panel className="rjsf-array-field">
         <PanelBody
-          title={
-            <>
-              {arrayTitle}
-              {required && <span className="required" aria-label="required"> *</span>}
-            </>
-          }
+          title={arrayTitle + (required ? ' *' : '')}
         >
           {content}
         </PanelBody>

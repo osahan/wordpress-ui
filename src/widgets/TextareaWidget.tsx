@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextareaControl } from '@wordpress/components';
-import type { WidgetProps } from '@rjsf/core';
+import type { WidgetProps } from '@rjsf/utils';
 
 const TextareaWidget: React.FC<WidgetProps> = ({
   id,

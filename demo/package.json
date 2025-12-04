@@ -9,8 +9,8 @@
   },
   "dependencies": {
     "@osahan/wordpress-ui": "file:..",
-    "@rjsf/core": "^5.0.0",
-    "@rjsf/utils": "^5.0.0",
+    "@rjsf/core": "^6.1.2",
+    "@rjsf/utils": "^6.1.2",
     "@rjsf/validator-ajv8": "^6.1.2",
     "@wordpress/components": "^20.0.0",
     "react": "^18.2.0",

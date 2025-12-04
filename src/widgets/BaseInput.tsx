@@ -1,7 +1,7 @@
 import React from 'react';
 import BaseInputTemplate from '../templates/BaseInputTemplate';
-import { WidgetProps } from '@rjsf/core';
-import { BaseInputTemplateProps } from '@rjsf/utils';
+import type { WidgetProps } from '@rjsf/utils';
+import type { BaseInputTemplateProps } from '@rjsf/utils';
 
 // BaseInput widget that uses BaseInputTemplate
 // Convert WidgetProps to BaseInputTemplateProps

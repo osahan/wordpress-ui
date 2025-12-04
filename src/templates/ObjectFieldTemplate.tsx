@@ -1,6 +1,6 @@
 import React from 'react';
 import { Panel, PanelBody } from '@wordpress/components';
-import type { ObjectFieldTemplateProps } from '@rjsf/core';
+import type { ObjectFieldTemplateProps } from '@rjsf/utils';
 
 const ObjectFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
   title,
@@ -10,9 +10,6 @@ const ObjectFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
   disabled,
   readonly,
   uiSchema,
-  idSchema,
-  formData,
-  onAddClick,
   schema,
 }) => {
   // Get title from uiSchema or schema
@@ -34,12 +31,7 @@ const ObjectFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
   return (
     <Panel className="rjsf-object-field">
       <PanelBody
-        title={
-          <>
-            {objectTitle}
-            {required && <span className="required" aria-label="required"> *</span>}
-          </>
-        }
+        title={objectTitle + (required ? ' *' : '')}
         initialOpen={defaultOpen}
       >
         {description && (

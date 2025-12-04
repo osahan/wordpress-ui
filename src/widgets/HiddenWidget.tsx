@@ -1,5 +1,5 @@
 import React from 'react';
-import type { WidgetProps } from '@rjsf/core';
+import type { WidgetProps } from '@rjsf/utils';
 
 const HiddenWidget: React.FC<WidgetProps> = ({ id, value, onChange }) => {
   // Hidden widget doesn't render anything visible

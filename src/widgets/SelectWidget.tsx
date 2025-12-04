@@ -1,6 +1,6 @@
 import React from 'react';
 import { SelectControl } from '@wordpress/components';
-import type { WidgetProps } from '@rjsf/core';
+import type { WidgetProps } from '@rjsf/utils';
 
 const SelectWidget: React.FC<WidgetProps> = ({
   id,

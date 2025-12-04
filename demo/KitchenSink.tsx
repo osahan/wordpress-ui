@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import Form from "@rjsf/core";
 import validator from "@rjsf/validator-ajv8";
+import type { RJSFSchema } from "@rjsf/utils";
 // Import WordPress styles
 import "@wordpress/components/build-style/style.css";
-// Import theme - using relative path to ensure it works
-import wordpressUITheme from "../src/index";
+// Import themed Form component
+import { WordPressUIForm } from "../src/index";
 
 const KitchenSink: React.FC = () => {
   const [formData, setFormData] = useState<any>({});
@@ -247,25 +247,6 @@ const KitchenSink: React.FC = () => {
     // Handle form errors if needed
   };
 
-  if (!wordpressUITheme) {
-    return (
-      <div
-        style={{
-          padding: "20px",
-          maxWidth: "800px",
-          margin: "0 auto",
-          background: "#fff",
-        }}
-      >
-        <h1>Error: Theme Not Loaded</h1>
-        <p>Please check the browser console for details.</p>
-        <p>
-          Make sure the theme is properly imported from '@osahan/wordpress-ui'
-        </p>
-      </div>
-    );
-  }
-
   return (
     <div
       style={{
@@ -281,17 +262,14 @@ const KitchenSink: React.FC = () => {
         WordPress UI theme for react-jsonschema-form.
       </p>
 
-      <Form
-        schema={schema}
+      <WordPressUIForm
+        schema={schema as RJSFSchema}
         uiSchema={uiSchema}
         formData={formData}
         validator={validator as any}
         onChange={({ formData }) => setFormData(formData)}
         onSubmit={handleSubmit}
         onError={handleError}
-        widgets={wordpressUITheme.widgets}
-        templates={wordpressUITheme.templates}
-        fields={wordpressUITheme.fields}
       />
 
       {submittedData && (

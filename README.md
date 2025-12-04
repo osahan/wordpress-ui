@@ -28,13 +28,13 @@ npm install react react-dom @wordpress/components @rjsf/core
 - `react`: ^16.8.0 || ^17.0.0 || ^18.0.0
 - `react-dom`: ^16.8.0 || ^17.0.0 || ^18.0.0
 - `@wordpress/components`: ^19.0.0 || ^20.0.0
-- `@rjsf/core`: ^5.0.0
+- `@rjsf/core`: ^6.1.2
 
 ## Quick Start
 
 ```jsx
-import { Form } from '@rjsf/core';
-import wordpressUITheme from '@osahan/wordpress-ui';
+import validator from '@rjsf/validator-ajv8';
+import { WordPressUIForm } from '@osahan/wordpress-ui';
 
 function MyForm() {
   const schema = {
@@ -54,9 +54,31 @@ function MyForm() {
   };
 
   return (
-    <Form
+    <WordPressUIForm
       schema={schema}
-      theme={wordpressUITheme}
+      validator={validator}
+      onSubmit={({ formData }) => console.log(formData)}
+    />
+  );
+}
+```
+
+### Alternative: Using withTheme directly
+
+You can also use the theme object with `withTheme` HOC for more control:
+
+```jsx
+import { withTheme } from '@rjsf/core';
+import validator from '@rjsf/validator-ajv8';
+import wordpressUITheme from '@osahan/wordpress-ui';
+
+const ThemedForm = withTheme(wordpressUITheme);
+
+function MyForm() {
+  return (
+    <ThemedForm
+      schema={schema}
+      validator={validator}
       onSubmit={({ formData }) => console.log(formData)}
     />
   );
@@ -133,8 +155,8 @@ The theme includes 13 templates for comprehensive form rendering:
 ### Basic Form
 
 ```jsx
-import { Form } from '@rjsf/core';
-import wordpressUITheme from '@osahan/wordpress-ui';
+import validator from '@rjsf/validator-ajv8';
+import { WordPressUIForm } from '@osahan/wordpress-ui';
 
 const schema = {
   type: 'object',
@@ -144,12 +166,15 @@ const schema = {
   },
 };
 
-<Form schema={schema} theme={wordpressUITheme} />
+<WordPressUIForm schema={schema} validator={validator} />
 ```
 
 ### Using Widgets
 
 ```jsx
+import validator from '@rjsf/validator-ajv8';
+import { WordPressUIForm } from '@osahan/wordpress-ui';
+
 const schema = {
   type: 'object',
   properties: {
@@ -172,12 +197,15 @@ const uiSchema = {
   },
 };
 
-<Form schema={schema} uiSchema={uiSchema} theme={wordpressUITheme} />
+<WordPressUIForm schema={schema} uiSchema={uiSchema} validator={validator} />
 ```
 
 ### Array Fields
 
 ```jsx
+import validator from '@rjsf/validator-ajv8';
+import { WordPressUIForm } from '@osahan/wordpress-ui';
+
 const schema = {
   type: 'object',
   properties: {
@@ -197,12 +225,15 @@ const uiSchema = {
   },
 };
 
-<Form schema={schema} uiSchema={uiSchema} theme={wordpressUITheme} />
+<WordPressUIForm schema={schema} uiSchema={uiSchema} validator={validator} />
 ```
 
 ### Nested Objects
 
 ```jsx
+import validator from '@rjsf/validator-ajv8';
+import { WordPressUIForm } from '@osahan/wordpress-ui';
+
 const schema = {
   type: 'object',
   properties: {
@@ -226,7 +257,7 @@ const uiSchema = {
   },
 };
 
-<Form schema={schema} uiSchema={uiSchema} theme={wordpressUITheme} />
+<WordPressUIForm schema={schema} uiSchema={uiSchema} validator={validator} />
 ```
 
 ## Styling
@@ -298,14 +329,23 @@ src/
 
 ## API Reference
 
-### Theme Object
+### Theme Object and Themed Form
+
+The package exports both the theme object and a pre-configured Form component:
 
 ```typescript
-import { ThemeProps } from '@rjsf/core';
-import wordpressUITheme from '@osahan/wordpress-ui';
+import { WordPressUIForm, wordpressUITheme } from '@osahan/wordpress-ui';
+import { withTheme, type ThemeProps } from '@rjsf/core';
+
+// Use the pre-configured Form component (recommended)
+<WordPressUIForm schema={schema} validator={validator} />
+
+// Or use withTheme HOC for advanced usage
+const ThemedForm = withTheme(wordpressUITheme);
+<ThemedForm schema={schema} validator={validator} />
 
 // Theme structure
-{
+const theme: ThemeProps = {
   widgets: {
     BaseInput,
     TextWidget,
@@ -354,12 +394,12 @@ import wordpressUITheme from '@osahan/wordpress-ui';
     TitleField,
     DescriptionField,
   },
-}
+};
 ```
 
 ## Compatibility
 
-- **react-jsonschema-form**: ^5.0.0
+- **react-jsonschema-form**: ^6.1.2
 - **React**: ^16.8.0 || ^17.0.0 || ^18.0.0
 - **@wordpress/components**: ^19.0.0 || ^20.0.0
 

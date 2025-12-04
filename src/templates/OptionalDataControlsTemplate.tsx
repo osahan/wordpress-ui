@@ -4,15 +4,12 @@ import { OptionalDataControlsTemplateProps } from '@rjsf/utils';
 
 const OptionalDataControlsTemplate: React.FC<OptionalDataControlsTemplateProps> = ({
   onAddClick,
-  disabled,
-  readonly,
 }) => {
   return (
     <div className="rjsf-optional-data-controls">
       <Button
         variant="secondary"
         onClick={onAddClick}
-        disabled={disabled || readonly}
         className="rjsf-add-optional-data-button"
       >
         Add Additional Data

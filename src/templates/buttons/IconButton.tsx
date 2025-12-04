@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button } from '@wordpress/components';
-import { IconButtonProps } from '@rjsf/utils';
+import type { IconButtonProps } from '@rjsf/utils';
 
-interface WordPressIconButtonProps extends IconButtonProps {
+interface WordPressIconButtonProps extends Omit<IconButtonProps, 'icon'> {
   icon?: React.ReactNode;
   variant?: 'primary' | 'secondary' | 'tertiary' | 'link';
   isDestructive?: boolean;
@@ -17,11 +17,10 @@ const IconButton: React.FC<WordPressIconButtonProps> = ({
 }) => {
   return (
     <Button
-      {...otherProps}
+      {...(otherProps as any)}
       variant={variant}
       isDestructive={isDestructive}
       className={className}
-      size="small"
     >
       {icon}
     </Button>
@@ -36,7 +35,7 @@ export function CopyButton(props: WordPressIconButtonProps) {
   } = props;
   return (
     <IconButton
-      title={translateString('Copy')}
+      title={translateString ? translateString('Copy' as any) : 'Copy'}
       {...props}
       icon="📋"
     />
@@ -49,7 +48,7 @@ export function MoveDownButton(props: WordPressIconButtonProps) {
   } = props;
   return (
     <IconButton
-      title={translateString('Move Down')}
+      title={translateString ? translateString('Move Down' as any) : 'Move Down'}
       {...props}
       icon="↓"
     />
@@ -62,7 +61,7 @@ export function MoveUpButton(props: WordPressIconButtonProps) {
   } = props;
   return (
     <IconButton
-      title={translateString('Move Up')}
+      title={translateString ? translateString('Move Up' as any) : 'Move Up'}
       {...props}
       icon="↑"
     />
@@ -75,7 +74,7 @@ export function RemoveButton(props: WordPressIconButtonProps) {
   } = props;
   return (
     <IconButton
-      title={translateString('Remove')}
+      title={translateString ? translateString('Remove' as any) : 'Remove'}
       variant="secondary"
       isDestructive
       {...props}

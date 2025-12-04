@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextControl } from '@wordpress/components';
-import type { WidgetProps } from '@rjsf/core';
+import type { WidgetProps } from '@rjsf/utils';
 
 const URLWidget: React.FC<WidgetProps> = ({
   id,

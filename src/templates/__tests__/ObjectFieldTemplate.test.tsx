@@ -57,8 +57,9 @@ describe('ObjectFieldTemplate', () => {
 
   it('displays required indicator when required', () => {
     render(<ObjectFieldTemplate {...defaultProps} required />);
-    expect(screen.getByText('Test Object')).toBeInTheDocument();
-    expect(screen.getByText('*')).toBeInTheDocument();
+    // In v6, the title includes the asterisk, so we check for the combined text
+    expect(screen.getByText(/Test Object/)).toBeInTheDocument();
+    expect(screen.getByText(/\*/)).toBeInTheDocument();
   });
 
   it('displays description', () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { RangeControl } from '@wordpress/components';
-import type { WidgetProps } from '@rjsf/core';
+import type { WidgetProps } from '@rjsf/utils';
 
 const RangeWidget: React.FC<WidgetProps> = ({
   id,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Notice } from '@wordpress/components';
-import type { ErrorListProps } from '@rjsf/core';
+import type { ErrorListProps } from '@rjsf/utils';
 
 const ErrorListTemplate: React.FC<ErrorListProps> = ({ errors }) => {
   if (!errors || errors.length === 0) {
@@ -14,7 +14,7 @@ const ErrorListTemplate: React.FC<ErrorListProps> = ({ errors }) => {
         <ul className="rjsf-error-list-items">
           {errors.map((error, index) => (
             <li key={index} className="rjsf-error-list-item">
-              {error.stack || error}
+              {typeof error === 'string' ? error : (error.stack || String(error))}
             </li>
           ))}
         </ul>

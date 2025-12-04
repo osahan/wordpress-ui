@@ -1,9 +1,13 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import Form from '@rjsf/core';
-import validator from '@rjsf/validator-ajv8';
-import wordpressUITheme from '../index';
+// Skip validator import in tests due to ES module issues with Jest
+// Create a mock validator instead
+const mockValidator = {
+  validateFormData: jest.fn(() => ({ errors: [] })),
+  toErrorList: jest.fn(() => []),
+} as any;
+import { WordPressUIForm } from '../index';
 
 describe('WordPress UI Theme Integration', () => {
   it('renders a form with the custom theme', () => {
@@ -19,12 +23,9 @@ describe('WordPress UI Theme Integration', () => {
     };
 
     render(
-      <Form
+      <WordPressUIForm
         schema={schema}
-        validator={validator}
-        widgets={wordpressUITheme.widgets}
-        templates={wordpressUITheme.templates}
-        fields={wordpressUITheme.fields}
+        validator={mockValidator}
       />
     );
     expect(screen.getByLabelText('Name')).toBeInTheDocument();
@@ -42,12 +43,9 @@ describe('WordPress UI Theme Integration', () => {
     };
 
     render(
-      <Form
+      <WordPressUIForm
         schema={schema}
-        validator={validator}
-        widgets={wordpressUITheme.widgets}
-        templates={wordpressUITheme.templates}
-        fields={wordpressUITheme.fields}
+        validator={mockValidator}
       />
     );
     expect(screen.getByLabelText('Text Field')).toBeInTheDocument();
@@ -74,7 +72,7 @@ describe('WordPress UI Theme Integration', () => {
       <Form
         schema={schema}
         uiSchema={uiSchema}
-        validator={validator}
+        validator={mockValidator}
         widgets={wordpressUITheme.widgets}
         templates={wordpressUITheme.templates}
         fields={wordpressUITheme.fields}
@@ -98,12 +96,9 @@ describe('WordPress UI Theme Integration', () => {
     };
 
     render(
-      <Form
+      <WordPressUIForm
         schema={schema}
-        validator={validator}
-        widgets={wordpressUITheme.widgets}
-        templates={wordpressUITheme.templates}
-        fields={wordpressUITheme.fields}
+        validator={mockValidator}
       />
     );
     expect(screen.getByLabelText('Role')).toBeInTheDocument();
@@ -122,12 +117,9 @@ describe('WordPress UI Theme Integration', () => {
     };
 
     render(
-      <Form
+      <WordPressUIForm
         schema={schema}
-        validator={validator}
-        widgets={wordpressUITheme.widgets}
-        templates={wordpressUITheme.templates}
-        fields={wordpressUITheme.fields}
+        validator={mockValidator}
       />
     );
     expect(screen.getByLabelText('Subscribe to newsletter')).toBeInTheDocument();
@@ -156,7 +148,7 @@ describe('WordPress UI Theme Integration', () => {
       <Form
         schema={schema}
         uiSchema={uiSchema}
-        validator={validator}
+        validator={mockValidator}
         widgets={wordpressUITheme.widgets}
         templates={wordpressUITheme.templates}
         fields={wordpressUITheme.fields}
@@ -183,7 +175,7 @@ describe('WordPress UI Theme Integration', () => {
     render(
       <Form
         schema={schema}
-        validator={validator}
+        validator={mockValidator}
         widgets={wordpressUITheme.widgets}
         templates={wordpressUITheme.templates}
         fields={wordpressUITheme.fields}
@@ -213,12 +205,9 @@ describe('WordPress UI Theme Integration', () => {
     };
 
     render(
-      <Form
+      <WordPressUIForm
         schema={schema}
-        validator={validator}
-        widgets={wordpressUITheme.widgets}
-        templates={wordpressUITheme.templates}
-        fields={wordpressUITheme.fields}
+        validator={mockValidator}
       />
     );
 
@@ -260,12 +249,9 @@ describe('WordPress UI Theme Integration', () => {
     };
 
     render(
-      <Form
+      <WordPressUIForm
         schema={schema}
-        validator={validator}
-        widgets={wordpressUITheme.widgets}
-        templates={wordpressUITheme.templates}
-        fields={wordpressUITheme.fields}
+        validator={mockValidator}
       />
     );
     // Title might appear multiple times (in TitleField and Panel), check if it exists
@@ -287,12 +273,9 @@ describe('WordPress UI Theme Integration', () => {
     };
 
     render(
-      <Form
+      <WordPressUIForm
         schema={schema}
-        validator={validator}
-        widgets={wordpressUITheme.widgets}
-        templates={wordpressUITheme.templates}
-        fields={wordpressUITheme.fields}
+        validator={mockValidator}
       />
     );
     // Title might appear multiple times, check if it exists
@@ -315,12 +298,9 @@ describe('WordPress UI Theme Integration', () => {
     };
 
     render(
-      <Form
+      <WordPressUIForm
         schema={schema}
-        validator={validator}
-        widgets={wordpressUITheme.widgets}
-        templates={wordpressUITheme.templates}
-        fields={wordpressUITheme.fields}
+        validator={mockValidator}
       />
     );
     // Required field might be rendered as "Name *" or "Name" with separate asterisk
@@ -344,12 +324,9 @@ describe('WordPress UI Theme Integration', () => {
     };
 
     render(
-      <Form
+      <WordPressUIForm
         schema={schema}
-        validator={validator}
-        widgets={wordpressUITheme.widgets}
-        templates={wordpressUITheme.templates}
-        fields={wordpressUITheme.fields}
+        validator={mockValidator}
       />
     );
     // Help text might be in a help div, description field, or help-text class

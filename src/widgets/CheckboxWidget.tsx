@@ -1,6 +1,6 @@
 import React from 'react';
 import { CheckboxControl } from '@wordpress/components';
-import type { WidgetProps } from '@rjsf/core';
+import type { WidgetProps } from '@rjsf/utils';
 
 const CheckboxWidget: React.FC<WidgetProps> = ({
   id,
