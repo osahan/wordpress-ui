@@ -1,0 +1,80 @@
+{
+  "name": "@osahan/wordpress-ui",
+  "version": "0.1.0",
+  "description": "WordPress UI theme for react-jsonschema-form",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/osahan/wordpress-ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/osahan/wordpress-ui/issues"
+  },
+  "homepage": "https://github.com/osahan/wordpress-ui#readme",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "style": "@wordpress/components/build-style/style.css",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "demo": "cd demo && npm install --legacy-peer-deps && npm run dev"
+  },
+  "peerDependencies": {
+    "@wordpress/components": "^19.0.0 || ^20.0.0",
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
+  },
+  "devDependencies": {
+    "@rjsf/core": "^5.0.0",
+    "@rjsf/react-bootstrap": "^6.1.2",
+    "@rjsf/utils": "^5.0.0",
+    "@testing-library/jest-dom": "^6.1.5",
+    "@testing-library/react": "^14.1.2",
+    "@testing-library/user-event": "^14.5.1",
+    "@types/jest": "^29.5.11",
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "@wordpress/components": "^20.0.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.3.3"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "jsdom",
+    "setupFilesAfterEnv": [
+      "<rootDir>/jest.setup.js"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less|scss|sass)$": "identity-obj-proxy"
+    },
+    "transform": {
+      "^.+\\.tsx?$": [
+        "ts-jest",
+        {
+          "tsconfig": {
+            "jsx": "react",
+            "esModuleInterop": true
+          }
+        }
+      ]
+    },
+    "testMatch": [
+      "**/__tests__/**/*.test.[jt]s?(x)",
+      "**/?(*.)+(spec|test).[jt]s?(x)"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
+  }
+}
