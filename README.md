@@ -241,7 +241,11 @@ import '@wordpress/components/build-style/style.css';
 
 ## Demo / Kitchen Sink
 
-A comprehensive demo showcasing all widgets and templates is available in the `demo` directory.
+A comprehensive demo showcasing all widgets and templates is available:
+
+🌐 **Live Demo:** [View on GitHub Pages](https://osahan.github.io/wordpress-ui/)
+
+The demo is also available locally in the `demo` directory.
 
 ### Running the Demo
 

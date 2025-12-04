@@ -6,6 +6,8 @@ demo/node_modules/
 dist/
 build/
 demo/dist/
+# GitHub Pages output (we want to commit this)
+# docs/
 
 # Test coverage
 coverage/
