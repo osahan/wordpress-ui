@@ -32,9 +32,13 @@ npm install react react-dom @wordpress/components @rjsf/core
 
 ## Quick Start
 
+### Basic Usage (Default Export)
+
+The simplest way to use the WordPress UI theme is to import the default `Form` component:
+
 ```jsx
 import validator from '@rjsf/validator-ajv8';
-import { WordPressUIForm } from '@osahan/wordpress-ui';
+import Form from '@osahan/wordpress-ui';
 
 function MyForm() {
   const schema = {
@@ -54,7 +58,7 @@ function MyForm() {
   };
 
   return (
-    <WordPressUIForm
+    <Form
       schema={schema}
       validator={validator}
       onSubmit={({ formData }) => console.log(formData)}
@@ -63,14 +67,35 @@ function MyForm() {
 }
 ```
 
-### Alternative: Using withTheme directly
+### Using generateForm() Function
 
-You can also use the theme object with `withTheme` HOC for more control:
+You can also use the `generateForm()` function to create a Form component (useful for TypeScript generics):
+
+```jsx
+import validator from '@rjsf/validator-ajv8';
+import { generateForm } from '@osahan/wordpress-ui';
+
+const Form = generateForm();
+
+function MyForm() {
+  return (
+    <Form
+      schema={schema}
+      validator={validator}
+      onSubmit={({ formData }) => console.log(formData)}
+    />
+  );
+}
+```
+
+### Advanced: Using withTheme directly
+
+For more control, you can use the theme object with `withTheme` HOC:
 
 ```jsx
 import { withTheme } from '@rjsf/core';
 import validator from '@rjsf/validator-ajv8';
-import wordpressUITheme from '@osahan/wordpress-ui';
+import { wordpressUITheme } from '@osahan/wordpress-ui';
 
 const ThemedForm = withTheme(wordpressUITheme);
 
@@ -83,6 +108,43 @@ function MyForm() {
     />
   );
 }
+```
+
+Or use `generateTheme()`:
+
+```jsx
+import { withTheme } from '@rjsf/core';
+import validator from '@rjsf/validator-ajv8';
+import { generateTheme } from '@osahan/wordpress-ui';
+
+const ThemedForm = withTheme(generateTheme());
+
+function MyForm() {
+  return (
+    <ThemedForm
+      schema={schema}
+      validator={validator}
+      onSubmit={({ formData }) => console.log(formData)}
+    />
+  );
+}
+```
+
+## API Exports
+
+This package follows the same pattern as `@rjsf/react-bootstrap`:
+
+- **Default export**: `Form` - Pre-configured Form component with WordPress UI theme
+- **`generateForm()`**: Function that returns a Form component (useful for TypeScript generics)
+- **`generateTheme()`**: Function that returns the theme object
+- **`wordpressUITheme`**: The theme object (alias for `generateTheme()`)
+
+```jsx
+// Default export (most common)
+import Form from '@osahan/wordpress-ui';
+
+// Named exports
+import { generateForm, generateTheme, wordpressUITheme } from '@osahan/wordpress-ui';
 ```
 
 ## Available Widgets
@@ -156,7 +218,7 @@ The theme includes 13 templates for comprehensive form rendering:
 
 ```jsx
 import validator from '@rjsf/validator-ajv8';
-import { WordPressUIForm } from '@osahan/wordpress-ui';
+import Form from '@osahan/wordpress-ui';
 
 const schema = {
   type: 'object',
@@ -166,14 +228,14 @@ const schema = {
   },
 };
 
-<WordPressUIForm schema={schema} validator={validator} />
+<Form schema={schema} validator={validator} />
 ```
 
 ### Using Widgets
 
 ```jsx
 import validator from '@rjsf/validator-ajv8';
-import { WordPressUIForm } from '@osahan/wordpress-ui';
+import Form from '@osahan/wordpress-ui';
 
 const schema = {
   type: 'object',
@@ -197,14 +259,14 @@ const uiSchema = {
   },
 };
 
-<WordPressUIForm schema={schema} uiSchema={uiSchema} validator={validator} />
+<Form schema={schema} uiSchema={uiSchema} validator={validator} />
 ```
 
 ### Array Fields
 
 ```jsx
 import validator from '@rjsf/validator-ajv8';
-import { WordPressUIForm } from '@osahan/wordpress-ui';
+import Form from '@osahan/wordpress-ui';
 
 const schema = {
   type: 'object',
@@ -225,14 +287,14 @@ const uiSchema = {
   },
 };
 
-<WordPressUIForm schema={schema} uiSchema={uiSchema} validator={validator} />
+<Form schema={schema} uiSchema={uiSchema} validator={validator} />
 ```
 
 ### Nested Objects
 
 ```jsx
 import validator from '@rjsf/validator-ajv8';
-import { WordPressUIForm } from '@osahan/wordpress-ui';
+import Form from '@osahan/wordpress-ui';
 
 const schema = {
   type: 'object',
@@ -257,8 +319,42 @@ const uiSchema = {
   },
 };
 
-<WordPressUIForm schema={schema} uiSchema={uiSchema} validator={validator} />
+<Form schema={schema} uiSchema={uiSchema} validator={validator} />
 ```
+
+## Controlled Components
+
+When using this theme with controlled components (passing `formData` prop), make sure to handle `onChange` correctly:
+
+```jsx
+import { useState } from 'react';
+import Form from '@osahan/wordpress-ui';
+import validator from '@rjsf/validator-ajv8';
+
+function MyForm() {
+  const [formData, setFormData] = useState({});
+
+  const handleChange = ({ formData }) => {
+    // Only update if data actually changed to prevent unnecessary re-renders
+    setFormData(formData);
+  };
+
+  return (
+    <Form
+      schema={schema}
+      formData={formData}
+      onChange={handleChange}
+      validator={validator}
+    />
+  );
+}
+```
+
+**Important**: This package follows the same pattern as `@rjsf/react-bootstrap` - it's a simple theme wrapper around RJSF's Form component. If you're experiencing infinite loops, check:
+
+1. Are you updating `formData` in `onChange` without checking if it actually changed?
+2. Are you using deep equality checks before updating state?
+3. Is your `onChange` handler causing unnecessary re-renders?
 
 ## Styling
 
@@ -334,11 +430,11 @@ src/
 The package exports both the theme object and a pre-configured Form component:
 
 ```typescript
-import { WordPressUIForm, wordpressUITheme } from '@osahan/wordpress-ui';
+import Form, { wordpressUITheme } from '@osahan/wordpress-ui';
 import { withTheme, type ThemeProps } from '@rjsf/core';
 
 // Use the pre-configured Form component (recommended)
-<WordPressUIForm schema={schema} validator={validator} />
+<Form schema={schema} validator={validator} />
 
 // Or use withTheme HOC for advanced usage
 const ThemedForm = withTheme(wordpressUITheme);

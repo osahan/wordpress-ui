@@ -4,7 +4,7 @@ import type { RJSFSchema } from "@rjsf/utils";
 // Import WordPress styles
 import "@wordpress/components/build-style/style.css";
 // Import themed Form component
-import { WordPressUIForm } from "../src/index";
+import Form from "../src/index";
 
 const KitchenSink: React.FC = () => {
   const [formData, setFormData] = useState<any>({});
@@ -247,6 +247,10 @@ const KitchenSink: React.FC = () => {
     // Handle form errors if needed
   };
 
+  const handleChange = ({ formData }: any) => {
+    setFormData(formData);
+  };
+
   return (
     <div
       style={{
@@ -262,12 +266,12 @@ const KitchenSink: React.FC = () => {
         WordPress UI theme for react-jsonschema-form.
       </p>
 
-      <WordPressUIForm
+      <Form
         schema={schema as RJSFSchema}
         uiSchema={uiSchema}
         formData={formData}
         validator={validator as any}
-        onChange={({ formData }) => setFormData(formData)}
+        onChange={handleChange}
         onSubmit={handleSubmit}
         onError={handleError}
       />

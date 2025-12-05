@@ -1,16 +1,10 @@
 import React from 'react';
 import type { WidgetProps } from '@rjsf/utils';
 
-const HiddenWidget: React.FC<WidgetProps> = ({ id, value, onChange }) => {
+const HiddenWidget: React.FC<WidgetProps> = ({ id, value }) => {
   // Hidden widget doesn't render anything visible
-  // But we need to ensure the value is set
-  React.useEffect(() => {
-    if (value === undefined) {
-      onChange('');
-    }
-  }, [value, onChange]);
-
-  return <input type="hidden" id={id} value={value || ''} />;
+  // Just render a hidden input with the value - no need to call onChange
+  return <input type="hidden" id={id} value={value || ''} readOnly />;
 };
 
 export default HiddenWidget;
