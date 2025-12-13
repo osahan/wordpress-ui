@@ -29,19 +29,21 @@ const ObjectFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
   }
 
   return (
-    <Panel className="rjsf-object-field">
-      <PanelBody
-        title={objectTitle + (required ? ' *' : '')}
-        initialOpen={defaultOpen}
-      >
-        {description && (
-          <p className="components-base-control__help">{description}</p>
-        )}
-        <div className="rjsf-object-field-properties">
-          {properties.map((prop) => prop.content)}
-        </div>
-      </PanelBody>
-    </Panel>
+    <div className="rjsf-object-field">
+      <Panel>
+        <PanelBody
+          title={objectTitle + (required ? ' *' : '')}
+          initialOpen={defaultOpen}
+        >
+          {description && (
+            <p className="components-base-control__help">{description}</p>
+          )}
+          <div className="rjsf-object-field-properties">
+            {properties.map((prop) => prop.content)}
+          </div>
+        </PanelBody>
+      </Panel>
+    </div>
   );
 };
 

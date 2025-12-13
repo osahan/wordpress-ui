@@ -142,11 +142,11 @@ const KitchenSink: React.FC = () => {
         default: "hidden-value",
       },
 
-      // Object field
+      // Object field with nested structure
       objectField: {
         type: "object",
-        title: "Object Field",
-        description: "Nested object field",
+        title: "Parent Object",
+        description: "Parent object field with nested children",
         properties: {
           nestedText: {
             type: "string",
@@ -155,6 +155,43 @@ const KitchenSink: React.FC = () => {
           nestedNumber: {
             type: "number",
             title: "Nested Number",
+          },
+          childObject: {
+            type: "object",
+            title: "Child Object",
+            description: "Child object nested inside parent",
+            properties: {
+              childText: {
+                type: "string",
+                title: "Child Text Field",
+              },
+              grandchildObject: {
+                type: "object",
+                title: "Grandchild Object",
+                description: "Grandchild object nested inside child",
+                properties: {
+                  grandchildText: {
+                    type: "string",
+                    title: "Grandchild Text",
+                  },
+                  grandchildNumber: {
+                    type: "number",
+                    title: "Grandchild Number",
+                  },
+                },
+              },
+            },
+          },
+          siblingObject: {
+            type: "object",
+            title: "Sibling Object",
+            description: "Another child object at the same level",
+            properties: {
+              siblingText: {
+                type: "string",
+                title: "Sibling Text",
+              },
+            },
           },
         },
       },
@@ -230,6 +267,24 @@ const KitchenSink: React.FC = () => {
       "ui:options": {
         collapsible: true,
         defaultOpen: true,
+      },
+      childObject: {
+        "ui:options": {
+          collapsible: true,
+          defaultOpen: true,
+        },
+        grandchildObject: {
+          "ui:options": {
+            collapsible: true,
+            defaultOpen: true,
+          },
+        },
+      },
+      siblingObject: {
+        "ui:options": {
+          collapsible: true,
+          defaultOpen: true,
+        },
       },
     },
     arrayField: {

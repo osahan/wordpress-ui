@@ -17,6 +17,28 @@ const FieldTemplate: React.FC<FieldTemplateProps> = ({
   schema,
   uiSchema,
 }) => {
+  // Check if this is an object field - ObjectFieldTemplate handles its own structure
+  const isObjectField = schema?.type === 'object' || schema?.type === undefined && schema?.properties;
+  
+  // For object fields, ObjectFieldTemplate handles labels/descriptions, so we just render children
+  // This ensures proper nesting hierarchy
+  if (isObjectField) {
+    return (
+      <div className={classNames} style={style}>
+        {children}
+        {rawErrors && rawErrors.length > 0 && (
+          <div className="components-base-control__help components-base-control__help--error">
+            {rawErrors.map((error, index) => (
+              <div key={index} className="components-notice is-error">
+                {typeof error === 'string' ? error : String(error)}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  }
+
   // Get label from uiSchema, label prop, or schema title
   const fieldLabel = label || uiSchema?.['ui:title'] || schema.title || '';
 
