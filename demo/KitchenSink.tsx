@@ -195,6 +195,251 @@ const KitchenSink: React.FC = () => {
           },
         },
       },
+      // Complex nested color schema test
+      color: {
+        type: "object",
+        title: "Color Configuration",
+        properties: {
+          link: {
+            type: "object",
+            title: "Color Link",
+            properties: {
+              value: {
+                type: "string",
+                title: "Link Color Value",
+              },
+              type: {
+                type: "string",
+                title: "Link Color Type",
+              },
+            },
+          },
+          theme1: {
+            type: "object",
+            title: "Color Theme 1",
+            properties: {
+              value: {
+                type: "string",
+                title: "Theme 1 Value",
+              },
+              type: {
+                type: "string",
+                title: "Theme 1 Type",
+              },
+            },
+          },
+          neutral: {
+            type: "object",
+            title: "Neutral Colors",
+            properties: {
+              black: {
+                type: "object",
+                title: "Color Neutral Black",
+                properties: {
+                  value: {
+                    type: "string",
+                    title: "Black Value",
+                  },
+                  type: {
+                    type: "string",
+                    title: "Black Type",
+                  },
+                },
+              },
+              white: {
+                type: "object",
+                title: "Color Neutral White",
+                properties: {
+                  value: {
+                    type: "string",
+                    title: "White Value",
+                  },
+                  type: {
+                    type: "string",
+                    title: "White Type",
+                  },
+                },
+              },
+              dark: {
+                type: "object",
+                title: "Neutral Dark",
+                properties: {
+                  "5": {
+                    type: "object",
+                    title: "Color Neutral Dark 5",
+                    properties: {
+                      value: {
+                        type: "string",
+                        title: "Dark 5 Value",
+                      },
+                      type: {
+                        type: "string",
+                        title: "Dark 5 Type",
+                      },
+                    },
+                  },
+                  "10": {
+                    type: "object",
+                    title: "Color Neutral Dark 10",
+                    properties: {
+                      value: {
+                        type: "string",
+                        title: "Dark 10 Value",
+                      },
+                      type: {
+                        type: "string",
+                        title: "Dark 10 Type",
+                      },
+                    },
+                  },
+                  "20": {
+                    type: "object",
+                    title: "Color Neutral Dark 20",
+                    properties: {
+                      value: {
+                        type: "string",
+                        title: "Dark 20 Value",
+                      },
+                      type: {
+                        type: "string",
+                        title: "Dark 20 Type",
+                      },
+                    },
+                  },
+                },
+              },
+              light: {
+                type: "object",
+                title: "Neutral Light",
+                properties: {
+                  "5": {
+                    type: "object",
+                    title: "Color Neutral Light 5",
+                    properties: {
+                      value: {
+                        type: "string",
+                        title: "Light 5 Value",
+                      },
+                      type: {
+                        type: "string",
+                        title: "Light 5 Type",
+                      },
+                    },
+                  },
+                  "10": {
+                    type: "object",
+                    title: "Color Neutral Light 10",
+                    properties: {
+                      value: {
+                        type: "string",
+                        title: "Light 10 Value",
+                      },
+                      type: {
+                        type: "string",
+                        title: "Light 10 Type",
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+          pairing: {
+            type: "object",
+            title: "Color Pairings",
+            properties: {
+              "1": {
+                type: "object",
+                title: "Pairing 1",
+                properties: {
+                  background: {
+                    type: "object",
+                    title: "Color Pairing 1 Background",
+                    properties: {
+                      value: {
+                        type: "string",
+                        title: "Background Value",
+                      },
+                      type: {
+                        type: "string",
+                        title: "Background Type",
+                      },
+                    },
+                  },
+                  text: {
+                    type: "object",
+                    title: "Color Pairing 1 Text",
+                    properties: {
+                      value: {
+                        type: "string",
+                        title: "Text Value",
+                      },
+                      type: {
+                        type: "string",
+                        title: "Text Type",
+                      },
+                    },
+                  },
+                  button: {
+                    type: "object",
+                    title: "Pairing 1 Button",
+                    properties: {
+                      background: {
+                        type: "object",
+                        title: "Color Pairing 1 Button Background",
+                        properties: {
+                          value: {
+                            type: "string",
+                            title: "Button Background Value",
+                          },
+                          type: {
+                            type: "string",
+                            title: "Button Background Type",
+                          },
+                        },
+                      },
+                      text: {
+                        type: "object",
+                        title: "Color Pairing 1 Button Text",
+                        properties: {
+                          value: {
+                            type: "string",
+                            title: "Button Text Value",
+                          },
+                          type: {
+                            type: "string",
+                            title: "Button Text Type",
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+              "2": {
+                type: "object",
+                title: "Pairing 2",
+                properties: {
+                  background: {
+                    type: "object",
+                    title: "Color Pairing 2 Background",
+                    properties: {
+                      value: {
+                        type: "string",
+                        title: "Background Value",
+                      },
+                      type: {
+                        type: "string",
+                        title: "Background Type",
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
 
       // Array field
       arrayField: {
@@ -284,6 +529,108 @@ const KitchenSink: React.FC = () => {
         "ui:options": {
           collapsible: true,
           defaultOpen: true,
+        },
+      },
+    },
+    color: {
+      "ui:options": {
+        collapsible: true,
+        defaultOpen: true,
+      },
+      link: {
+        "ui:options": {
+          collapsible: true,
+          defaultOpen: false,
+        },
+      },
+      theme1: {
+        "ui:options": {
+          collapsible: true,
+          defaultOpen: false,
+        },
+      },
+      neutral: {
+        "ui:options": {
+          collapsible: true,
+          defaultOpen: false,
+        },
+        black: {
+          "ui:options": {
+            collapsible: true,
+            defaultOpen: false,
+          },
+        },
+        white: {
+          "ui:options": {
+            collapsible: true,
+            defaultOpen: false,
+          },
+        },
+        dark: {
+          "ui:options": {
+            collapsible: true,
+            defaultOpen: false,
+          },
+          "5": {
+            "ui:options": {
+              collapsible: true,
+              defaultOpen: false,
+            },
+          },
+          "10": {
+            "ui:options": {
+              collapsible: true,
+              defaultOpen: false,
+            },
+          },
+          "20": {
+            "ui:options": {
+              collapsible: true,
+              defaultOpen: false,
+            },
+          },
+        },
+        light: {
+          "ui:options": {
+            collapsible: true,
+            defaultOpen: false,
+          },
+          "5": {
+            "ui:options": {
+              collapsible: true,
+              defaultOpen: false,
+            },
+          },
+          "10": {
+            "ui:options": {
+              collapsible: true,
+              defaultOpen: false,
+            },
+          },
+        },
+      },
+      pairing: {
+        "ui:options": {
+          collapsible: true,
+          defaultOpen: false,
+        },
+        "1": {
+          "ui:options": {
+            collapsible: true,
+            defaultOpen: false,
+          },
+          button: {
+            "ui:options": {
+              collapsible: true,
+              defaultOpen: false,
+            },
+          },
+        },
+        "2": {
+          "ui:options": {
+            collapsible: true,
+            defaultOpen: false,
+          },
         },
       },
     },

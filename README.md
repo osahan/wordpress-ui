@@ -290,7 +290,7 @@ const uiSchema = {
 <Form schema={schema} uiSchema={uiSchema} validator={validator} />
 ```
 
-### Nested Objects
+### Nested Objects with Collapsible Panels
 
 ```jsx
 import validator from '@rjsf/validator-ajv8';
@@ -313,13 +313,43 @@ const schema = {
 const uiSchema = {
   user: {
     'ui:options': {
-      collapsible: true,
-      defaultOpen: true,
+      collapsible: true,      // Enable collapsible panel (default: true)
+      defaultOpen: false,     // Start collapsed (default: true, meaning open by default)
     },
   },
 };
 
 <Form schema={schema} uiSchema={uiSchema} validator={validator} />
+```
+
+### Controlling Accordion State
+
+You can control whether accordions start open or collapsed using the `defaultOpen` option in `ui:options`:
+
+- **`defaultOpen: true`** (default) - Accordion starts **open/expanded**
+- **`defaultOpen: false`** - Accordion starts **collapsed/closed**
+
+**Example - Start all accordions collapsed:**
+
+```jsx
+const uiSchema = {
+  // This accordion will start collapsed
+  myObject: {
+    'ui:options': {
+      defaultOpen: false,  // Accordion will be collapsed initially
+    },
+  },
+  // This accordion will start open (default behavior)
+  anotherObject: {
+    'ui:options': {
+      defaultOpen: true,   // Explicitly set to open (this is the default)
+    },
+  },
+  // Default behavior (open) - no need to specify
+  thirdObject: {
+    // No ui:options needed - will default to open
+  },
+};
 ```
 
 ## Controlled Components

@@ -1,6 +1,6 @@
 {
   "name": "@osahan/wordpress-ui",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "WordPress UI theme for react-jsonschema-form",
   "license": "MIT",
   "repository": {
@@ -17,6 +17,7 @@
   "style": "@wordpress/components/build-style/style.css",
   "files": [
     "dist",
+    "src/styles.css",
     "README.md"
   ],
   "scripts": {

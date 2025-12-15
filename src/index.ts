@@ -2,6 +2,85 @@
 // Import WordPress components styles to ensure widgets match WordPress admin styling
 import '@wordpress/components/build-style/style.css';
 
+// Inject custom theme styles for sticky accordion titles
+// Using JavaScript injection to avoid bundler CSS import issues
+if (typeof document !== 'undefined' && !document.getElementById('wordpress-ui-theme-styles')) {
+  const style = document.createElement('style');
+  style.id = 'wordpress-ui-theme-styles';
+  style.textContent = `
+    /* WordPress UI Theme Custom Styles */
+    
+    /* Make accordion panel titles sticky when scrolling */
+    .components-panel__body-title {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background-color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+    
+    /* Ensure the button inside the title is also sticky */
+    .components-panel__body-title button {
+      background-color: #fff;
+      width: 100%;
+    }
+    
+    /* Add a subtle border-bottom when sticky to separate from content above */
+    .components-panel__body-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background-color: #ddd;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    
+    /* Show border when scrolled (sticky state) */
+    .components-panel__body-title:has(button:focus)::after,
+    .components-panel__body-title:hover::after {
+      opacity: 1;
+    }
+    
+    /* Ensure proper stacking context for nested panels */
+    .components-panel {
+      position: relative;
+    }
+    
+    /* Adjust z-index for nested panels to maintain proper stacking */
+    .components-panel .components-panel .components-panel__body-title {
+      z-index: 11;
+    }
+    
+    .components-panel .components-panel .components-panel .components-panel__body-title {
+      z-index: 12;
+    }
+    
+    .components-panel .components-panel .components-panel .components-panel .components-panel__body-title {
+      z-index: 13;
+    }
+    
+    /* Dark mode support */
+    @media (prefers-color-scheme: dark) {
+      .components-panel__body-title {
+        background-color: #1e1e1e;
+      }
+      
+      .components-panel__body-title button {
+        background-color: #1e1e1e;
+      }
+      
+      .components-panel__body-title::after {
+        background-color: #3c3c3c;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+}
+
 import { ComponentType } from 'react';
 import { withTheme, type ThemeProps, type FormProps } from '@rjsf/core';
 import type { FormContextType, RJSFSchema, StrictRJSFSchema } from '@rjsf/utils';
