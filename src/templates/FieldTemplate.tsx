@@ -1,6 +1,7 @@
 import React from 'react';
 import { BaseControl } from '@wordpress/components';
 import type { FieldTemplateProps } from '@rjsf/utils';
+import FieldDebugInfo from './FieldDebugInfo';
 
 const FieldTemplate: React.FC<FieldTemplateProps> = ({
   id,
@@ -16,7 +17,11 @@ const FieldTemplate: React.FC<FieldTemplateProps> = ({
   rawHelp,
   schema,
   uiSchema,
+  formData,
+  ...rest
 }) => {
+  // Extract idSchema from rest props if available
+  const idSchema = (rest as any).idSchema;
   // Check if this is an object field - ObjectFieldTemplate handles its own structure
   const isObjectField = schema?.type === 'object' || schema?.type === undefined && schema?.properties;
   
@@ -52,6 +57,9 @@ const FieldTemplate: React.FC<FieldTemplateProps> = ({
   // Hide label if explicitly set in uiSchema
   const hideLabel = uiSchema?.['ui:options']?.hideLabel === true;
 
+  // Check if debug mode is enabled
+  const showDebug = uiSchema?.['ui:options']?.debug === true;
+
   return (
     <div className={classNames} style={style}>
       <BaseControl
@@ -73,6 +81,15 @@ const FieldTemplate: React.FC<FieldTemplateProps> = ({
             </div>
           ))}
         </div>
+      )}
+      {showDebug && (
+        <FieldDebugInfo
+          id={id}
+          schema={schema}
+          uiSchema={uiSchema}
+          formData={formData}
+          idSchema={idSchema}
+        />
       )}
     </div>
   );

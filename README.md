@@ -352,6 +352,65 @@ const uiSchema = {
 };
 ```
 
+### Debug Mode
+
+You can enable debug mode for any field or object to see its schema, uiSchema, formData, and idSchema. This is useful for troubleshooting form rendering issues.
+
+```jsx
+const uiSchema = {
+  // Enable debug for a specific field
+  myField: {
+    'ui:options': {
+      debug: true,  // Shows debug panel with schema, uiSchema, formData, and idSchema
+    },
+  },
+  // Enable debug for an object field
+  myObject: {
+    'ui:options': {
+      debug: true,  // Shows debug info for the object
+    },
+  },
+};
+```
+
+When debug mode is enabled, a collapsible debug panel will appear below the field showing:
+- **Field ID**: The unique identifier for the field
+- **Schema**: The JSON schema definition for the field
+- **UI Schema**: The UI schema configuration
+- **Form Data**: The current form data value for the field
+- **ID Schema**: The ID schema structure (for object fields)
+
+This is particularly useful when debugging nested schemas or understanding how RJSF is processing your schema structure.
+```
+
+### Readonly Fields
+
+You can make any field read-only (non-editable) using the `readonly` option in `uiSchema`:
+
+```jsx
+const uiSchema = {
+  // Make a field read-only
+  myField: {
+    'ui:readonly': true,  // Field will be read-only (non-editable)
+  },
+  
+  // You can also set readonly on the Form component for all fields
+  // <Form schema={schema} uiSchema={uiSchema} validator={validator} readonly />
+  
+  // Or make specific nested fields readonly
+  'color.link.value': {
+    'ui:readonly': true,  // This specific field will be read-only
+  },
+};
+```
+
+**Options:**
+- **`'ui:readonly': true`** - Makes the field read-only (non-editable)
+- **`'ui:readonly': false`** or not set - Field is editable (default)
+
+**Note:** Read-only fields are visually disabled and cannot be edited by users. This is useful for displaying computed values, locked fields, or fields that should not be modified.
+```
+
 ## Controlled Components
 
 When using this theme with controlled components (passing `formData` prop), make sure to handle `onChange` correctly:

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Panel, PanelBody } from '@wordpress/components';
 import type { ObjectFieldTemplateProps } from '@rjsf/utils';
+import FieldDebugInfo from './FieldDebugInfo';
 
 const ObjectFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
   title,
@@ -11,7 +12,11 @@ const ObjectFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
   readonly,
   uiSchema,
   schema,
+  formData,
+  ...rest
 }) => {
+  // Extract idSchema from rest props if available
+  const idSchema = (rest as any).idSchema;
   // Get title from uiSchema (explicitly check if it exists, even if empty string)
   // If ui:title is explicitly set (including empty string), use it
   // Otherwise fall back to title prop or schema.title
@@ -34,6 +39,9 @@ const ObjectFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
     (propSchema: any) => propSchema?.type === 'object' || (propSchema?.properties && typeof propSchema.properties === 'object')
   );
 
+  // Check if debug mode is enabled
+  const showDebug = uiSchema?.['ui:options']?.debug === true;
+
   // If no title but has nested objects, render Panel for proper visual nesting
   // WordPress PanelBody can render without title prop (omitted, not empty string)
   // This creates a container for children to nest inside
@@ -49,6 +57,15 @@ const ObjectFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
             {description && (
               <p className="components-base-control__help">{description}</p>
             )}
+            {showDebug && idSchema && (
+              <FieldDebugInfo
+                id={idSchema.$id || ''}
+                schema={schema}
+                uiSchema={uiSchema}
+                formData={formData}
+                idSchema={idSchema}
+              />
+            )}
             <div className="rjsf-object-field-properties">
               {properties.map((prop) => prop.content)}
             </div>
@@ -62,6 +79,15 @@ const ObjectFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
   if (!objectTitle) {
     return (
       <div className="rjsf-object-field">
+        {showDebug && idSchema && (
+          <FieldDebugInfo
+            id={idSchema.$id || ''}
+            schema={schema}
+            uiSchema={uiSchema}
+            formData={formData}
+            idSchema={idSchema}
+          />
+        )}
         <div className="rjsf-object-field-properties">
           {properties.map((prop) => prop.content)}
         </div>
@@ -78,6 +104,15 @@ const ObjectFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
         >
           {description && (
             <p className="components-base-control__help">{description}</p>
+          )}
+          {showDebug && idSchema && (
+            <FieldDebugInfo
+              id={idSchema.$id || ''}
+              schema={schema}
+              uiSchema={uiSchema}
+              formData={formData}
+              idSchema={idSchema}
+            />
           )}
           <div className="rjsf-object-field-properties">
             {properties.map((prop) => prop.content)}

@@ -512,6 +512,7 @@ const KitchenSink: React.FC = () => {
       "ui:options": {
         collapsible: true,
         defaultOpen: true,
+        debug: true,  // Enable debug mode for this object field
       },
       childObject: {
         "ui:options": {
