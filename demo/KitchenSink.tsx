@@ -6,6 +6,33 @@ import "@wordpress/components/build-style/style.css";
 // Import themed Form component
 import Form from "../src/index";
 
+// Test widget component for anyOf schema testing
+const CustomToggleWidget: React.FC<any> = ({ value, onChange, schema, options }) => {
+  const boolValue = value === true || value === 1 || value === '1' || value === 'true';
+  
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+      <input
+        type="checkbox"
+        checked={boolValue}
+        onChange={(e) => {
+          const newValue = e.target.checked;
+          // Handle different types in anyOf
+          if (schema?.type === 'number') {
+            onChange(newValue ? 1 : 0);
+          } else {
+            onChange(newValue ? 'true' : 'false');
+          }
+        }}
+        style={{ width: 'auto' }}
+      />
+      <label style={{ margin: 0 }}>
+        {boolValue ? 'Enabled' : 'Disabled'}
+      </label>
+    </div>
+  );
+};
+
 const KitchenSink: React.FC = () => {
   const [formData, setFormData] = useState<any>({});
   const [submittedData, setSubmittedData] = useState<any>(null);
@@ -471,6 +498,68 @@ const KitchenSink: React.FC = () => {
           },
         },
       },
+
+      // Test case for anyOf schema with custom widget component
+      "is-dark-theme": {
+        type: "object",
+        title: "Dark Theme Toggle (anyOf Test)",
+        description: "Testing custom widget component with anyOf schema",
+        properties: {
+          type: {
+            type: "string",
+            title: "Type",
+          },
+          value: {
+            anyOf: [
+              { type: "string" },
+              { type: "number" },
+            ],
+            title: "Value",
+          },
+        },
+      },
+
+      // Test case for allOf schema (similar to fontPropertiesAndDesktopAndNoAdditionalProperties)
+      // This tests that allOf schemas don't create duplicate fields
+      "fontPropertiesTest": {
+        type: "object",
+        title: "Font Properties (allOf Test)",
+        description: "Testing allOf schema merging - should show single fields, not duplicates",
+        allOf: [
+          {
+            type: "object",
+            properties: {
+              size: {
+                type: "string",
+                title: "Size",
+              },
+              lineHeight: {
+                type: "string",
+                title: "Line Height",
+              },
+            },
+          },
+          {
+            type: "object",
+            properties: {
+              letterSpacing: {
+                type: "string",
+                title: "Letter Spacing",
+              },
+              family: {
+                type: "string",
+                title: "Family",
+              },
+            },
+          },
+        ],
+        properties: {
+          size: true,
+          lineHeight: true,
+          letterSpacing: true,
+          family: true,
+        },
+      },
     },
   };
 
@@ -479,6 +568,21 @@ const KitchenSink: React.FC = () => {
       "ui:widget": "textarea",
       "ui:options": {
         rows: 5,
+      },
+    },
+    // Test case: Custom widget component with anyOf schema
+    "is-dark-theme": {
+      type: {
+        "ui:widget": "hidden",
+      },
+      value: {
+        "ui:widget": CustomToggleWidget, // Component directly - should work
+      },
+    },
+    fontPropertiesTest: {
+      "ui:options": {
+        collapsible: true,
+        defaultOpen: true,
       },
     },
     radioField: {
