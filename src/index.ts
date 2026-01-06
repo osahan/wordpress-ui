@@ -83,54 +83,6 @@ if (typeof document !== 'undefined' && !document.getElementById('wordpress-ui-th
       outline: 1px solid #0073aa;
       outline-offset: -1px;
     }
-    
-    /* Dark mode support */
-    @media (prefers-color-scheme: dark) {
-      .components-panel__body-title {
-        background-color: #1e1e1e;
-      }
-      
-      .components-panel__body-title button {
-        background-color: #1e1e1e;
-      }
-      
-      .components-panel__body-title::after {
-        background-color: #3c3c3c;
-      }
-      
-      .rjsf-object-field .rjsf-object-field .components-panel__body {
-        background-color: #2a2a2a;
-        border-left-color: #404040;
-      }
-      
-      .rjsf-object-field .rjsf-object-field .rjsf-object-field .components-panel__body {
-        background-color: #252525;
-        border-left-color: #353535;
-      }
-      
-      .rjsf-field-object > .rjsf-object-field > .components-panel > .components-panel__body {
-        border-color: #404040;
-        background-color: #1e1e1e;
-      }
-      
-      .components-panel__body:hover {
-        background-color: #2a2a2a;
-      }
-      
-      .rjsf-object-field .rjsf-object-field .components-panel__body:hover {
-        background-color: #2f2f2f;
-        border-left-color: #0073aa;
-      }
-      
-      .rjsf-field-object > .rjsf-object-field > .components-panel > .components-panel__body {
-        border-color: #404040;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-      }
-      
-      .rjsf-field-object + .rjsf-field-object {
-        border-top-color: #353535;
-      }
-    }
   `;
   document.head.appendChild(style);
 }
