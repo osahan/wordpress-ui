@@ -52,18 +52,3 @@
 .components-panel .components-panel .components-panel .components-panel .components-panel__body-title {
   z-index: 13;
 }
-
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  .components-panel__body-title {
-    background-color: #1e1e1e;
-  }
-  
-  .components-panel__body-title button {
-    background-color: #1e1e1e;
-  }
-  
-  .components-panel__body-title::after {
-    background-color: #3c3c3c;
-  }
-}
