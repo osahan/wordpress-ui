@@ -1,6 +1,12 @@
 // WordPress UI theme for react-jsonschema-form
-// Import WordPress components styles to ensure widgets match WordPress admin styling
-import '@wordpress/components/build-style/style.css';
+// 
+// WordPress component styles are NOT automatically imported to prevent conflicts
+// in WordPress environments where styles are already loaded via wp_enqueue_style().
+// 
+// For non-WordPress environments, import styles manually:
+//   import '@wordpress/components/build-style/style.css';
+// 
+// In WordPress environments, styles are typically already loaded, so no action needed.
 
 // Inject custom theme styles for sticky accordion titles and improved nested UI
 // Using JavaScript injection to avoid bundler CSS import issues
@@ -8,10 +14,11 @@ if (typeof document !== 'undefined' && !document.getElementById('wordpress-ui-th
   const style = document.createElement('style');
   style.id = 'wordpress-ui-theme-styles';
   style.textContent = `
-    /* WordPress UI Theme Custom Styles */
+    /* WordPress UI Theme Custom Styles - Scoped to RJSF forms only */
+    /* All styles are scoped under .rjsf to prevent CSS bleeding */
     
-    /* Make accordion panel titles sticky when scrolling */
-    .components-panel__body-title {
+    /* Make accordion panel titles sticky when scrolling - scoped to RJSF forms */
+    .rjsf .components-panel__body-title {
       position: sticky;
       top: 0;
       z-index: 10;
@@ -21,13 +28,13 @@ if (typeof document !== 'undefined' && !document.getElementById('wordpress-ui-th
     }
     
     /* Ensure the button inside the title is also sticky */
-    .components-panel__body-title button {
+    .rjsf .components-panel__body-title button {
       background-color: #fff;
       width: 100%;
     }
     
     /* Add a subtle border-bottom when sticky to separate from content above */
-    .components-panel__body-title::after {
+    .rjsf .components-panel__body-title::after {
       content: '';
       position: absolute;
       bottom: 0;
@@ -40,46 +47,46 @@ if (typeof document !== 'undefined' && !document.getElementById('wordpress-ui-th
     }
     
     /* Show border when scrolled (sticky state) */
-    .components-panel__body-title:has(button:focus)::after,
-    .components-panel__body-title:hover::after {
+    .rjsf .components-panel__body-title:has(button:focus)::after,
+    .rjsf .components-panel__body-title:hover::after {
       opacity: 1;
     }
     
     /* Ensure proper stacking context for nested panels */
-    .components-panel {
+    .rjsf .components-panel {
       position: relative;
     }
     
     /* Adjust z-index for nested panels to maintain proper stacking */
-    .components-panel .components-panel .components-panel__body-title {
+    .rjsf .components-panel .components-panel .components-panel__body-title {
       z-index: 11;
     }
     
-    .components-panel .components-panel .components-panel .components-panel__body-title {
+    .rjsf .components-panel .components-panel .components-panel .components-panel__body-title {
       z-index: 12;
     }
     
-    .components-panel .components-panel .components-panel .components-panel .components-panel__body-title {
+    .rjsf .components-panel .components-panel .components-panel .components-panel .components-panel__body-title {
       z-index: 13;
     }
     
     /* Minimal nested UI styling - keep close to WordPress defaults */
     
     /* Simple indentation for nested panels - consistent 1rem spacing */
-    .rjsf-object-field .rjsf-object-field .components-panel {
+    .rjsf .rjsf-object-field .rjsf-object-field .components-panel {
       margin-left: 1rem;
     }
     
-    .rjsf-object-field .rjsf-object-field .rjsf-object-field .components-panel {
+    .rjsf .rjsf-object-field .rjsf-object-field .rjsf-object-field .components-panel {
       margin-left: 1rem;
     }
     
-    .rjsf-object-field .rjsf-object-field .rjsf-object-field .rjsf-object-field .components-panel {
+    .rjsf .rjsf-object-field .rjsf-object-field .rjsf-object-field .rjsf-object-field .components-panel {
       margin-left: 1rem;
     }
     
     /* Subtle focus highlighting - only when field is focused */
-    .components-panel__body:focus-within {
+    .rjsf .components-panel__body:focus-within {
       outline: 1px solid #0073aa;
       outline-offset: -1px;
     }

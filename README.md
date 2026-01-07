@@ -10,6 +10,8 @@ A comprehensive WordPress-themed UI component library for [react-jsonschema-form
 - ✅ **TypeScript support** - Fully typed components
 - ✅ **Comprehensive tests** - 100+ unit tests covering all components
 - ✅ **Kitchen sink demo** - Interactive demo showcasing all features
+- ✅ **WordPress compatible** - No duplicate style loading, works seamlessly in WordPress environments
+- ✅ **Scoped CSS** - All styles scoped under `.rjsf` to prevent CSS bleeding
 
 ## Installation
 
@@ -25,9 +27,9 @@ This package requires the following peer dependencies:
 npm install react react-dom @wordpress/components @rjsf/core
 ```
 
-- `react`: ^16.8.0 || ^17.0.0 || ^18.0.0
-- `react-dom`: ^16.8.0 || ^17.0.0 || ^18.0.0
-- `@wordpress/components`: ^19.0.0 || ^20.0.0
+- `react`: ^18.0.0
+- `react-dom`: ^18.0.0
+- `@wordpress/components`: ^28.6.0
 - `@rjsf/core`: ^6.1.2
 
 ## Quick Start
@@ -447,13 +449,30 @@ function MyForm() {
 
 ## Styling
 
-WordPress component styles are automatically imported when you use the theme. The styles from `@wordpress/components` ensure all widgets match the WordPress admin interface.
+### WordPress Environments
 
-If you need to import styles separately (e.g., for CSS-in-JS setups), you can reference the `style` field in package.json:
+**WordPress component styles are NOT automatically imported** to prevent conflicts in WordPress environments where styles are already loaded via `wp_enqueue_style()`. 
+
+In WordPress environments, no action is needed - styles are already available.
+
+### Non-WordPress Environments
+
+For non-WordPress environments (standalone React apps), you need to import WordPress component styles manually:
 
 ```jsx
 import '@wordpress/components/build-style/style.css';
+import Form from '@osahan/wordpress-ui';
 ```
+
+### CSS Scoping
+
+All custom styles are scoped under `.rjsf` to prevent CSS bleeding into other parts of your application. The library only injects styles for:
+
+- Sticky accordion panel titles
+- Nested panel indentation
+- Focus highlighting
+
+These styles only apply within RJSF forms and won't affect other WordPress components or your application's styles.
 
 ## Demo / Kitchen Sink
 
@@ -585,8 +604,18 @@ const theme: ThemeProps = {
 ## Compatibility
 
 - **react-jsonschema-form**: ^6.1.2
-- **React**: ^16.8.0 || ^17.0.0 || ^18.0.0
-- **@wordpress/components**: ^19.0.0 || ^20.0.0
+- **React**: ^18.0.0
+- **@wordpress/components**: ^28.6.0
+
+### WordPress Integration
+
+This library is designed to work seamlessly in WordPress environments:
+
+- ✅ **No duplicate styles** - WordPress component styles are not automatically imported
+- ✅ **Scoped CSS** - All custom styles are scoped under `.rjsf` to prevent conflicts
+- ✅ **WordPress admin compatibility** - Uses native WordPress components that match admin UI
+
+When using in WordPress, ensure WordPress component styles are enqueued via `wp_enqueue_style()` - the library will use them automatically.
 
 ## Contributing
 

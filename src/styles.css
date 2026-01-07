@@ -1,7 +1,8 @@
-/* WordPress UI Theme Custom Styles */
+/* WordPress UI Theme Custom Styles - Scoped to RJSF forms only */
+/* All styles are scoped under .rjsf to prevent CSS bleeding */
 
-/* Make accordion panel titles sticky when scrolling */
-.components-panel__body-title {
+/* Make accordion panel titles sticky when scrolling - scoped to RJSF forms */
+.rjsf .components-panel__body-title {
   position: sticky;
   top: 0;
   z-index: 10;
@@ -11,13 +12,13 @@
 }
 
 /* Ensure the button inside the title is also sticky */
-.components-panel__body-title button {
+.rjsf .components-panel__body-title button {
   background-color: #fff;
   width: 100%;
 }
 
 /* Add a subtle border-bottom when sticky to separate from content above */
-.components-panel__body-title::after {
+.rjsf .components-panel__body-title::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -30,25 +31,25 @@
 }
 
 /* Show border when scrolled (sticky state) */
-.components-panel__body-title:has(button:focus)::after,
-.components-panel__body-title:hover::after {
+.rjsf .components-panel__body-title:has(button:focus)::after,
+.rjsf .components-panel__body-title:hover::after {
   opacity: 1;
 }
 
 /* Ensure proper stacking context for nested panels */
-.components-panel {
+.rjsf .components-panel {
   position: relative;
 }
 
 /* Adjust z-index for nested panels to maintain proper stacking */
-.components-panel .components-panel .components-panel__body-title {
+.rjsf .components-panel .components-panel .components-panel__body-title {
   z-index: 11;
 }
 
-.components-panel .components-panel .components-panel .components-panel__body-title {
+.rjsf .components-panel .components-panel .components-panel .components-panel__body-title {
   z-index: 12;
 }
 
-.components-panel .components-panel .components-panel .components-panel .components-panel__body-title {
+.rjsf .components-panel .components-panel .components-panel .components-panel .components-panel__body-title {
   z-index: 13;
 }
