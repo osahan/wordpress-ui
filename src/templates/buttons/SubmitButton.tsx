@@ -1,22 +1,21 @@
 import React from 'react';
 import { Button } from '@wordpress/components';
-import { getSubmitButtonOptions, SubmitButtonProps } from '@rjsf/utils';
+import { type SubmitButtonProps, getSubmitButtonOptions } from '@rjsf/utils';
 
 const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
-  const { submitText, norender, props: submitButtonProps } = getSubmitButtonOptions(props.uiSchema);
-  
-  if (norender) {
-    return null;
-  }
+    const { norender, props: submitButtonProps, submitText } = getSubmitButtonOptions(props.uiSchema);
 
-  return (
-    <div className="rjsf-submit-button-wrapper">
-      <Button variant="primary" type="submit" {...submitButtonProps}>
-        {submitText}
-      </Button>
-    </div>
-  );
+    if (norender) {
+        return null;
+    }
+
+    return (
+        <div className="rjsf-submit-button-wrapper">
+            <Button type="submit" variant="primary" {...submitButtonProps}>
+                {submitText}
+            </Button>
+        </div>
+    );
 };
 
 export default SubmitButton;
-

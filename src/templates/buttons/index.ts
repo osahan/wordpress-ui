@@ -1,4 +1,3 @@
 export { default as AddButton } from './AddButton';
 export { default as SubmitButton } from './SubmitButton';
-export { default as IconButton, CopyButton, MoveDownButton, MoveUpButton, RemoveButton } from './IconButton';
-
+export { CopyButton, MoveUpButton, RemoveButton, MoveDownButton, default as IconButton } from './IconButton';

@@ -1,43 +1,43 @@
 import React from 'react';
-import BaseInputTemplate from '../templates/BaseInputTemplate';
 import type { WidgetProps } from '@rjsf/utils';
 import type { BaseInputTemplateProps } from '@rjsf/utils';
+
+import BaseInputTemplate from '../templates/BaseInputTemplate';
 
 // BaseInput widget that uses BaseInputTemplate
 // Convert WidgetProps to BaseInputTemplateProps
 const BaseInput: React.FC<WidgetProps> = ({
-  id,
-  value,
-  required,
-  disabled,
-  readonly,
-  onChange,
-  onBlur,
-  onFocus,
-  options = {},
-  schema,
-  type,
-  ...rest
-}) => {
-  const templateProps: BaseInputTemplateProps = {
-    id,
-    htmlName: id,
-    value: value || '',
-    required,
     disabled,
-    readonly,
-    type: type || 'text',
+    id,
+    onBlur,
     onChange,
-    onBlur: (id, value) => onBlur(id, value),
-    onFocus: (id, value) => onFocus(id, value),
-    options,
+    onFocus,
+    options = {},
+    readonly,
+    required,
     schema,
-    rawErrors: rest.rawErrors || [],
-    ...rest,
-  };
+    type,
+    value,
+    ...rest
+}) => {
+    const templateProps: BaseInputTemplateProps = {
+        disabled,
+        htmlName: id,
+        id,
+        onBlur: (id, value) => onBlur(id, value),
+        onChange,
+        onFocus: (id, value) => onFocus(id, value),
+        options,
+        rawErrors: rest.rawErrors || [],
+        readonly,
+        required,
+        schema,
+        type: type || 'text',
+        value: value || '',
+        ...rest,
+    };
 
-  return <BaseInputTemplate {...templateProps} />;
+    return <BaseInputTemplate {...templateProps} />;
 };
 
 export default BaseInput;
-
