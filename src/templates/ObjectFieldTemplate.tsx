@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Panel, PanelBody } from '@wordpress/components';
-import { buttonId, canExpand, type ObjectFieldTemplateProps } from '@rjsf/utils';
+import { buttonId, canExpand, getUiOptions, type ObjectFieldTemplateProps } from '@rjsf/utils';
 
 import FieldDebugInfo from './FieldDebugInfo';
 
@@ -25,13 +25,15 @@ const ObjectFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
   formData,
   ...rest
 }) => {
+  const uiOptions = getUiOptions(uiSchema);
+
   // Extract idSchema from rest props if available
   const idSchema = (rest as any).idSchema;
   // Get title from uiSchema (explicitly check if it exists, even if empty string)
   // If ui:title is explicitly set (including empty string), use it
   // Otherwise fall back to title prop or schema.title
-  const objectTitle = uiSchema && 'ui:title' in uiSchema
-    ? (uiSchema['ui:title'] || '')
+  const objectTitle = uiOptions.title
+    ? (uiOptions.title || '')
     : (title || schema.title || '');
 
   // Check if this should be collapsible
