@@ -70,6 +70,8 @@ export default defineConfig([
                 },
             ],
 
+            'jsx-a11y/no-autofocus': 'warn',
+
             'perfectionist/sort-classes': 'off',
             'perfectionist/sort-enums': [0],
 
