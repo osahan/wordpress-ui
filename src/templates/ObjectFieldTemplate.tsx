@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Panel, PanelBody } from '@wordpress/components';
 import { buttonId, canExpand, type ObjectFieldTemplateProps } from '@rjsf/utils';
 
@@ -30,7 +30,7 @@ const ObjectFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
   // Get title from uiSchema (explicitly check if it exists, even if empty string)
   // If ui:title is explicitly set (including empty string), use it
   // Otherwise fall back to title prop or schema.title
-  const objectTitle = uiSchema && 'ui:title' in uiSchema 
+  const objectTitle = uiSchema && 'ui:title' in uiSchema
     ? (uiSchema['ui:title'] || '')
     : (title || schema.title || '');
 
@@ -89,7 +89,7 @@ const ObjectFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
       // This creates a container for children to nest inside
         // Render Panel without title prop (not empty string) so children Panels can nest visually inside
         // According to WordPress docs, PanelBody without title renders but stays open
-        panelContainer = (children) => (
+        panelContainer = (children: ReactNode) => (
           <div className="rjsf-object-field">
             <Panel>
               <PanelBody
@@ -105,13 +105,13 @@ const ObjectFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
         );
   } else if (!objectTitle) {
     // If no title and no nested objects, render simple container
-    panelContainer = (children) => (
+    panelContainer = (children: ReactNode) => (
       <div className="rjsf-object-field">
             {children}
       </div>
     );
   } else {
-    panelContainer = (children) => (
+    panelContainer = (children: ReactNode) => (
         <div className="rjsf-object-field">
           <Panel>
             <PanelBody
