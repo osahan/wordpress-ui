@@ -1,0 +1,35 @@
+name: Lint
+
+on:
+  push:
+    branches: ['main']
+  pull_request:
+    branches: ['main']
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out our repo source code
+        uses: actions/checkout@v4
+        with:
+          # don't save GITHUB_TOKEN to .git/config; use credential helper instead
+          persist-credentials: false
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+        env:
+          APP_TOKEN: ${{ steps.app-token.outputs.token }}
+          NPM_TOKEN: ${{ secrets.NPM_READ_TOKEN }}
+
+      - name: Run JS Linting
+        run: npm run lint
