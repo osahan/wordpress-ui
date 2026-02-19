@@ -1,12 +1,22 @@
 import React from 'react';
 import { Panel, PanelBody } from '@wordpress/components';
-import type { ObjectFieldTemplateProps } from '@rjsf/utils';
+import { buttonId, canExpand, type ObjectFieldTemplateProps } from '@rjsf/utils';
+
 import FieldDebugInfo from './FieldDebugInfo';
 
+/**
+ * The `ObjectFieldTemplate` is the template to use to render all the inner
+ * properties of an object along with the title and description if available. If
+ * the object is expandable, then an `AddButton` is also rendered after all the
+ * properties.
+ */
 const ObjectFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
   title,
   description,
+  fieldPathId,
+  onAddProperty,
   properties,
+  registry,
   required,
   disabled,
   readonly,
@@ -26,7 +36,7 @@ const ObjectFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
 
   // Check if this should be collapsible
   const isCollapsible = uiSchema?.['ui:options']?.collapsible !== false;
-  
+
   // Control initial open/collapsed state
   // - If defaultOpen is explicitly set to false, panel starts collapsed
   // - If defaultOpen is true or undefined, panel starts open (default behavior)
@@ -41,6 +51,10 @@ const ObjectFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
 
   // Check if debug mode is enabled
   const showDebug = uiSchema?.['ui:options']?.debug === true;
+
+  const {
+    ButtonTemplates: { AddButton },
+  } = registry.templates;
 
   // If no title but has nested objects, render Panel for proper visual nesting
   // WordPress PanelBody can render without title prop (omitted, not empty string)
@@ -117,6 +131,16 @@ const ObjectFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
           <div className="rjsf-object-field-properties">
             {properties.map((prop) => prop.content)}
           </div>
+          {canExpand(schema, uiSchema, formData) && (
+            <AddButton
+              id={buttonId(fieldPathId, 'add')}
+              className='rjsf-object-property-expand'
+              onClick={onAddProperty}
+              disabled={disabled || readonly}
+              uiSchema={uiSchema}
+              registry={registry}
+            />
+          )}
         </PanelBody>
       </Panel>
     </div>
@@ -124,4 +148,3 @@ const ObjectFieldTemplate: React.FC<ObjectFieldTemplateProps> = ({
 };
 
 export default ObjectFieldTemplate;
-
