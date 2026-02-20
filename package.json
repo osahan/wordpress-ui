@@ -33,6 +33,7 @@
     "@rjsf/core": "^6.1.2",
     "@rjsf/utils": "^6.1.2",
     "@wordpress/components": "^28.6.0",
+    "@wordpress/icons": "^11.7.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },

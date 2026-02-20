@@ -1,21 +1,31 @@
 import React from 'react';
+import { create } from '@wordpress/icons';
 import { Button } from '@wordpress/components';
-import { IconButtonProps, TranslatableString } from '@rjsf/utils';
+import { TranslatableString } from '@rjsf/utils';
 
-const AddButton: React.FC<IconButtonProps> = ({ uiSchema, registry, ...props }) => {
-  const { translateString } = registry;
-  return (
-    <Button
-      title={translateString(TranslatableString.AddItemButton)}
-      {...props}
-      variant="secondary"
-      className={`rjsf-add-button ${props.className || ''}`}
-      style={{ width: '100%', ...props.style }}
-    >
-      + {translateString(TranslatableString.AddItemButton)}
-    </Button>
-  );
+import type { WordPressIconButtonProps } from './IconButton';
+
+const AddButton: React.FC<WordPressIconButtonProps> = ({
+    className,
+    registry,
+    style,
+    title,
+    uiSchema,
+    ...props
+}) => {
+    const { translateString } = registry;
+    const text = translateString(TranslatableString.AddItemButton);
+    return (
+        <Button
+            className={`rjsf-add-button ${className || ''}`}
+            icon={create}
+            style={{ width: '100%', ...style }}
+            text={text}
+            title={title? title : text}
+            variant="secondary"
+            {...props}
+        ></Button>
+    );
 };
 
 export default AddButton;
-
