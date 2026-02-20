@@ -7,7 +7,7 @@ const mockValidator = {
   validateFormData: jest.fn(() => ({ errors: [] })),
   toErrorList: jest.fn(() => []),
 } as any;
-import { WordPressUIForm } from '../index';
+import WordPressUIForm from '../index';
 
 describe('WordPress UI Theme Integration', () => {
   it('renders a form with the custom theme', () => {
@@ -68,32 +68,32 @@ describe('WordPress UI Theme Integration', () => {
       },
     };
 
-    render(
-      <Form
-        schema={schema}
-        uiSchema={uiSchema}
-        validator={mockValidator}
-        widgets={wordpressUITheme.widgets}
-        templates={wordpressUITheme.templates}
-        fields={wordpressUITheme.fields}
-      />
-    );
-    const textarea = screen.getByLabelText('Biography');
-    expect(textarea.tagName).toBe('TEXTAREA');
-  });
+        render(
+            <WordPressUIForm
+                schema={schema}
+                uiSchema={uiSchema}
+                validator={mockValidator}
+            />,
+        );
+        const textarea = screen.getByLabelText('Biography');
+        expect(textarea.tagName).toBe('TEXTAREA');
+    });
 
-  it('renders select widget', () => {
-    const schema = {
-      type: 'object',
-      properties: {
-        role: {
-          type: 'string',
-          title: 'Role',
-          enum: ['admin', 'editor', 'author'],
-          enumNames: ['Administrator', 'Editor', 'Author'],
-        },
-      },
-    };
+    it('renders select widget', () => {
+        const schema = {
+            properties: {
+                role: {
+                    oneOf: [
+                        { const: 'admin', title: 'Administrator' },
+                        { const: 'editor', title: 'Editor' },
+                        { const: 'author', title: 'Author' },
+                    ],
+                    title: 'Role',
+                    type: 'string',
+                },
+            },
+            type: 'object',
+        };
 
     render(
       <WordPressUIForm
@@ -144,20 +144,17 @@ describe('WordPress UI Theme Integration', () => {
       },
     };
 
-    render(
-      <Form
-        schema={schema}
-        uiSchema={uiSchema}
-        validator={mockValidator}
-        widgets={wordpressUITheme.widgets}
-        templates={wordpressUITheme.templates}
-        fields={wordpressUITheme.fields}
-      />
-    );
-    // Radio label might appear multiple times, use getAllByText and check first
-    expect(screen.getAllByText('Choice').length).toBeGreaterThan(0);
-    expect(screen.getByTestId(/choice-option1/)).toBeInTheDocument();
-  });
+        render(
+            <WordPressUIForm
+                schema={schema}
+                uiSchema={uiSchema}
+                validator={mockValidator}
+            />,
+        );
+        // Radio label might appear multiple times, use getAllByText and check first
+        expect(screen.getAllByText('Choice').length).toBeGreaterThan(0);
+        expect(screen.getByTestId(/choice-option1/)).toBeInTheDocument();
+    });
 
   it('handles form submission', async () => {
     const user = userEvent.setup();
@@ -172,16 +169,13 @@ describe('WordPress UI Theme Integration', () => {
       },
     };
 
-    render(
-      <Form
-        schema={schema}
-        validator={mockValidator}
-        widgets={wordpressUITheme.widgets}
-        templates={wordpressUITheme.templates}
-        fields={wordpressUITheme.fields}
-        onSubmit={onSubmit}
-      />
-    );
+        render(
+            <WordPressUIForm
+                onSubmit={onSubmit}
+                schema={schema}
+                validator={mockValidator}
+            />,
+        );
 
     const input = screen.getByLabelText('Name');
     await user.type(input, 'Test User');
@@ -216,8 +210,8 @@ describe('WordPress UI Theme Integration', () => {
 
     // Form should show validation errors - check for error notice, error list, or any error indication
     // Errors might be in ErrorListTemplate or FieldErrorTemplate
-    const errorText = screen.queryByText(/required/i) || 
-                     screen.queryByText(/is required/i) || 
+    const errorText = screen.queryByText(/required/i) ||
+                     screen.queryByText(/is required/i) ||
                      screen.queryByText(/must have required property/i) ||
                      screen.queryByText(/name/i) || // Field name might be in error
                      screen.queryByRole('alert') || // Error notice might be an alert
@@ -331,13 +325,13 @@ describe('WordPress UI Theme Integration', () => {
     );
     // Help text might be in a help div, description field, or help-text class
     // Check multiple ways the help text might be rendered
-    const helpText = screen.queryByText('Enter your full name') || 
+    const helpText = screen.queryByText('Enter your full name') ||
                      screen.queryByText((content, element) => {
                        return element?.textContent?.includes('Enter your full name');
                      }) ||
                      screen.queryByLabelText('Name', { selector: '[aria-describedby]' }) ||
                      document.querySelector('[class*="help"]')?.textContent?.includes('Enter your full name');
-    
+
     // If help text not found directly, verify the field exists (help might be rendered differently)
     if (!helpText && !document.querySelector('[class*="help"]')) {
       // At least verify the field rendered - help text might be in a different format
