@@ -35,7 +35,6 @@ const WrapIfAdditionalTemplate: React.FC<WrapIfAdditionalTemplateProps> = ({
     return (
         <div className={classNames} key={`${id}-${label}`}>
             <div className="rjsf-additional-property">
-                <div className="rjsf-additional-property-content">{children}</div>
                 <div className="rjsf-additional-property-actions">
                     <RemoveButton
                         className="rjsf-object-property-remove"
@@ -47,6 +46,7 @@ const WrapIfAdditionalTemplate: React.FC<WrapIfAdditionalTemplateProps> = ({
                         uiSchema={uiSchema}
                     />
                 </div>
+                <div className="rjsf-additional-property-content">{children}</div>
             </div>
         </div>
     );
