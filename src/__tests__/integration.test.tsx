@@ -7,7 +7,7 @@ const mockValidator = {
     toErrorList: jest.fn(() => []),
     validateFormData: jest.fn(() => ({ errors: [] })),
 } as any;
-import { WordPressUIForm } from '../index';
+import WordPressUIForm from '../index';
 
 describe('WordPress UI Theme Integration', () => {
     it('renders a form with the custom theme', () => {
@@ -59,13 +59,10 @@ describe('WordPress UI Theme Integration', () => {
         };
 
         render(
-            <Form
-                fields={wordpressUITheme.fields}
+            <WordPressUIForm
                 schema={schema}
-                templates={wordpressUITheme.templates}
                 uiSchema={uiSchema}
                 validator={mockValidator}
-                widgets={wordpressUITheme.widgets}
             />,
         );
         const textarea = screen.getByLabelText('Biography');
@@ -76,8 +73,11 @@ describe('WordPress UI Theme Integration', () => {
         const schema = {
             properties: {
                 role: {
-                    enum: ['admin', 'editor', 'author'],
-                    enumNames: ['Administrator', 'Editor', 'Author'],
+                    oneOf: [
+                        { const: 'admin', title: 'Administrator' },
+                        { const: 'editor', title: 'Editor' },
+                        { const: 'author', title: 'Author' },
+                    ],
                     title: 'Role',
                     type: 'string',
                 },
@@ -125,13 +125,10 @@ describe('WordPress UI Theme Integration', () => {
         };
 
         render(
-            <Form
-                fields={wordpressUITheme.fields}
+            <WordPressUIForm
                 schema={schema}
-                templates={wordpressUITheme.templates}
                 uiSchema={uiSchema}
                 validator={mockValidator}
-                widgets={wordpressUITheme.widgets}
             />,
         );
         // Radio label might appear multiple times, use getAllByText and check first
@@ -153,13 +150,10 @@ describe('WordPress UI Theme Integration', () => {
         };
 
         render(
-            <Form
-                fields={wordpressUITheme.fields}
+            <WordPressUIForm
                 onSubmit={onSubmit}
                 schema={schema}
-                templates={wordpressUITheme.templates}
                 validator={mockValidator}
-                widgets={wordpressUITheme.widgets}
             />,
         );
 
