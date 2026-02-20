@@ -58,13 +58,7 @@ describe('WordPress UI Theme Integration', () => {
             },
         };
 
-        render(
-            <WordPressUIForm
-                schema={schema}
-                uiSchema={uiSchema}
-                validator={mockValidator}
-            />,
-        );
+        render(<WordPressUIForm schema={schema} uiSchema={uiSchema} validator={mockValidator} />);
         const textarea = screen.getByLabelText('Biography');
         expect(textarea.tagName).toBe('TEXTAREA');
     });
@@ -124,13 +118,7 @@ describe('WordPress UI Theme Integration', () => {
             },
         };
 
-        render(
-            <WordPressUIForm
-                schema={schema}
-                uiSchema={uiSchema}
-                validator={mockValidator}
-            />,
-        );
+        render(<WordPressUIForm schema={schema} uiSchema={uiSchema} validator={mockValidator} />);
         // Radio label might appear multiple times, use getAllByText and check first
         expect(screen.getAllByText('Choice').length).toBeGreaterThan(0);
         expect(screen.getByTestId(/choice-option1/)).toBeInTheDocument();
@@ -149,13 +137,7 @@ describe('WordPress UI Theme Integration', () => {
             type: 'object',
         };
 
-        render(
-            <WordPressUIForm
-                onSubmit={onSubmit}
-                schema={schema}
-                validator={mockValidator}
-            />,
-        );
+        render(<WordPressUIForm onSubmit={onSubmit} schema={schema} validator={mockValidator} />);
 
         const input = screen.getByLabelText('Name');
         await user.type(input, 'Test User');
