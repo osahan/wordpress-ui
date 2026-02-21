@@ -3,28 +3,18 @@ import { Button } from '@wordpress/components';
 import { TranslatableString, type IconButtonProps } from '@rjsf/utils';
 import { copy, arrowUp, arrowDown, closeSmall } from '@wordpress/icons';
 
-export interface WordPressIconButtonProps extends Omit<IconButtonProps, 'icon'> {
-    icon?: React.ReactNode;
-    isDestructive?: boolean;
-    text?: string;
-    variant?: 'link' | 'primary' | 'secondary' | 'tertiary';
-}
+type WordpressButtonProps = React.ComponentProps<typeof Button>
+export type WordPressIconButtonProps = Omit<IconButtonProps, 'icon'> & WordpressButtonProps
 
 const IconButton: React.FC<WordPressIconButtonProps> = ({
-    className,
-    icon,
     isDestructive = false,
-    text,
     variant = 'secondary',
     ...otherProps
 }) => {
     return (
         <Button
             {...(otherProps as any)}
-            className={className}
-            icon={icon}
             isDestructive={isDestructive}
-            text={text}
             variant={variant}
         ></Button>
     );
