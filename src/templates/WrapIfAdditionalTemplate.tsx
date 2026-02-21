@@ -1,52 +1,49 @@
 import React from 'react';
-import { Button } from '@wordpress/components';
+import { buttonId, ADDITIONAL_PROPERTY_FLAG, type WrapIfAdditionalTemplateProps } from '@rjsf/utils';
 
-interface WrapIfAdditionalTemplateProps {
-    children: React.ReactNode;
-    classNames?: string;
-    disabled?: boolean;
-    id: string;
-    label: string;
-    onDropPropertyClick: (label: string) => () => void;
-    onKeyDrop?: (key: string) => void;
-    readonly?: boolean;
-    required?: boolean;
-    schema: any;
-}
-
+/**
+ * The `WrapIfAdditional` component is used by the `FieldTemplate` to rename,
+ * or remove properties that are part of an `additionalProperties` part of a
+ * schema.
+ *
+ * @param props - The `WrapIfAdditionalProps` for this component
+ */
 const WrapIfAdditionalTemplate: React.FC<WrapIfAdditionalTemplateProps> = ({
     children,
     classNames,
     disabled,
     id,
     label,
-    onDropPropertyClick,
-    onKeyDrop,
+    onRemoveProperty,
     readonly,
-    required,
+    registry,
     schema,
+    uiSchema,
 }) => {
-    const isAdditional = schema.hasOwnProperty('__additional_property');
+    const isAdditional = schema.hasOwnProperty(ADDITIONAL_PROPERTY_FLAG);
 
     if (!isAdditional) {
         return <>{children}</>;
     }
 
+    const { templates, translateString } = registry;
+    const { RemoveButton } = templates.ButtonTemplates;
+
     return (
         <div className={classNames} key={`${id}-${label}`}>
             <div className="rjsf-additional-property">
-                <div className="rjsf-additional-property-content">{children}</div>
                 <div className="rjsf-additional-property-actions">
-                    <Button
-                        className="rjsf-additional-property-remove"
+                    <RemoveButton
+                        className="rjsf-object-property-remove"
                         disabled={disabled || readonly}
-                        isDestructive
-                        onClick={onDropPropertyClick(label)}
-                        variant="secondary"
-                    >
-                        Remove
-                    </Button>
+                        iconType="default"
+                        id={buttonId(id, 'remove')}
+                        onClick={onRemoveProperty}
+                        registry={registry}
+                        uiSchema={uiSchema}
+                    />
                 </div>
+                <div className="rjsf-additional-property-content">{children}</div>
             </div>
         </div>
     );

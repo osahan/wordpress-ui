@@ -9,7 +9,7 @@ import Form from "../src/index";
 // Test widget component for anyOf schema testing
 const CustomToggleWidget: React.FC<any> = ({ value, onChange, schema, options }) => {
   const boolValue = value === true || value === 1 || value === '1' || value === 'true';
-  
+
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
       <input
@@ -499,6 +499,31 @@ const KitchenSink: React.FC = () => {
         },
       },
 
+      // Pattern Properties
+      patternProps: {
+        title: "Pattern Properties",
+        description: "Object with pattern properties",
+        type: 'object',
+        patternProperties: {
+            '^\w+$': {
+                type: 'object',
+                additionalProperties: false,
+                properties:{
+                    owner:{ type: 'string' },
+                    enabled:{ type: 'boolean'},
+                    startDate:{
+                        type: 'string',
+                        format: 'date'},
+                },
+                required:[
+                     'enabled'
+                    , 'owner'
+                    , 'startDate'
+                ]
+            }
+        }
+      },
+
       // Test case for anyOf schema with custom widget component
       "is-dark-theme": {
         type: "object",
@@ -744,6 +769,11 @@ const KitchenSink: React.FC = () => {
         addButtonText: "Add New Item",
       },
     },
+    patternProps: {
+      "ui:options": {
+        addButtonText: "Add New Object",
+      },
+    }
   };
 
   const handleSubmit = ({ formData }: any) => {

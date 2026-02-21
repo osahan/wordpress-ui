@@ -1,16 +1,12 @@
 import React from 'react';
 import { Button } from '@wordpress/components';
-import type { IconButtonProps } from '@rjsf/utils';
+import { TranslatableString, type IconButtonProps } from '@rjsf/utils';
+import { copy, arrowUp, arrowDown, closeSmall } from '@wordpress/icons';
 
-interface WordPressIconButtonProps extends Omit<IconButtonProps, 'icon'> {
-    icon?: React.ReactNode;
-    isDestructive?: boolean;
-    variant?: 'link' | 'primary' | 'secondary' | 'tertiary';
-}
+type WordpressButtonProps = React.ComponentProps<typeof Button>
+export type WordPressIconButtonProps = Omit<IconButtonProps, 'icon'> & WordpressButtonProps
 
 const IconButton: React.FC<WordPressIconButtonProps> = ({
-    className,
-    icon,
     isDestructive = false,
     variant = 'secondary',
     ...otherProps
@@ -18,63 +14,40 @@ const IconButton: React.FC<WordPressIconButtonProps> = ({
     return (
         <Button
             {...(otherProps as any)}
-            className={className}
             isDestructive={isDestructive}
             variant={variant}
-        >
-            {icon}
-        </Button>
+        ></Button>
     );
 };
 
 export default IconButton;
 
-export const CopyButton = (props: WordPressIconButtonProps) => {
-    const {
-        registry: { translateString },
-    } = props;
-    return (
-        <IconButton title={translateString ? translateString('Copy' as any) : 'Copy'} {...props} icon="📋" />
-    );
+export const CopyButton = ({ title, ...props }: WordPressIconButtonProps) => {
+    const { translateString } = props.registry;
+    const text = translateString(TranslatableString.CopyButton);
+    return <IconButton icon={copy} title={title ?? text} {...props} />;
 };
 
-export const MoveDownButton = (props: WordPressIconButtonProps) => {
-    const {
-        registry: { translateString },
-    } = props;
-    return (
-        <IconButton
-            title={translateString ? translateString('Move Down' as any) : 'Move Down'}
-            {...props}
-            icon="↓"
-        />
-    );
+export const MoveDownButton = ({ title, ...props }: WordPressIconButtonProps) => {
+    const { translateString } = props.registry;
+    const text = translateString(TranslatableString.MoveDownButton);
+    return <IconButton icon={arrowDown} title={title ?? text} {...props} />;
 };
 
-export const MoveUpButton = (props: WordPressIconButtonProps) => {
-    const {
-        registry: { translateString },
-    } = props;
-    return (
-        <IconButton
-            title={translateString ? translateString('Move Up' as any) : 'Move Up'}
-            {...props}
-            icon="↑"
-        />
-    );
+export const MoveUpButton = ({ title, ...props }: WordPressIconButtonProps) => {
+    const { translateString } = props.registry;
+    const text = translateString(TranslatableString.MoveUpButton);
+    return <IconButton icon={arrowUp} title={title ?? text} {...props} />;
 };
 
-export const RemoveButton = (props: WordPressIconButtonProps) => {
-    const {
-        registry: { translateString },
-    } = props;
-    return (
-        <IconButton
-            isDestructive
-            title={translateString ? translateString('Remove' as any) : 'Remove'}
-            variant="secondary"
-            {...props}
-            icon="✕"
-        />
-    );
+export const RemoveButton = ({ title, ...props }: WordPressIconButtonProps) => {
+    const { translateString } = props.registry;
+    const text = translateString(TranslatableString.RemoveButton);
+    return <IconButton icon={closeSmall} isDestructive text={text} title={title ?? text} {...props} />;
+};
+
+export const ClearButton = ({ title, ...props }: WordPressIconButtonProps) => {
+    const { translateString } = props.registry;
+    const text = translateString(TranslatableString.MoveDownButton);
+    return <IconButton icon={arrowDown} isDestructive title={title ? title : text} {...props} />;
 };
