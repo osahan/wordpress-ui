@@ -16,7 +16,7 @@ if (typeof document !== 'undefined' && !document.getElementById('wordpress-ui-th
     style.textContent = `
     /* WordPress UI Theme Custom Styles - Scoped to RJSF forms only */
     /* All styles are scoped under .rjsf to prevent CSS bleeding */
-    
+
     /* Make accordion panel titles sticky when scrolling - scoped to RJSF forms */
     .rjsf .components-panel__body-title {
       position: sticky;
@@ -26,13 +26,13 @@ if (typeof document !== 'undefined' && !document.getElementById('wordpress-ui-th
       margin: 0;
       padding: 0;
     }
-    
+
     /* Ensure the button inside the title is also sticky */
     .rjsf .components-panel__body-title button {
       background-color: #fff;
       width: 100%;
     }
-    
+
     /* Add a subtle border-bottom when sticky to separate from content above */
     .rjsf .components-panel__body-title::after {
       content: '';
@@ -45,50 +45,56 @@ if (typeof document !== 'undefined' && !document.getElementById('wordpress-ui-th
       opacity: 0;
       transition: opacity 0.2s;
     }
-    
+
     /* Show border when scrolled (sticky state) */
     .rjsf .components-panel__body-title:has(button:focus)::after,
     .rjsf .components-panel__body-title:hover::after {
       opacity: 1;
     }
-    
+
     /* Ensure proper stacking context for nested panels */
     .rjsf .components-panel {
       position: relative;
     }
-    
+
     /* Adjust z-index for nested panels to maintain proper stacking */
     .rjsf .components-panel .components-panel .components-panel__body-title {
       z-index: 11;
     }
-    
+
     .rjsf .components-panel .components-panel .components-panel .components-panel__body-title {
       z-index: 12;
     }
-    
+
     .rjsf .components-panel .components-panel .components-panel .components-panel .components-panel__body-title {
       z-index: 13;
     }
-    
+
     /* Minimal nested UI styling - keep close to WordPress defaults */
-    
+
     /* Simple indentation for nested panels - consistent 1rem spacing */
     .rjsf .rjsf-object-field .rjsf-object-field .components-panel {
       margin-left: 1rem;
     }
-    
+
     .rjsf .rjsf-object-field .rjsf-object-field .rjsf-object-field .components-panel {
       margin-left: 1rem;
     }
-    
+
     .rjsf .rjsf-object-field .rjsf-object-field .rjsf-object-field .rjsf-object-field .components-panel {
       margin-left: 1rem;
     }
-    
+
     /* Subtle focus highlighting - only when field is focused */
     .rjsf .components-panel__body:focus-within {
       outline: 1px solid #0073aa;
       outline-offset: -1px;
+    }
+
+    /* size the button svg icons */
+    .rjsf .rjsf-add-button > svg {
+      width: 24px;
+      height: 24px;
     }
   `;
     document.head.appendChild(style);
