@@ -45,3 +45,9 @@ export const RemoveButton = ({ title, ...props }: WordPressIconButtonProps) => {
     const text = translateString(TranslatableString.RemoveButton);
     return <IconButton icon={closeSmall} isDestructive text={text} title={title ?? text} {...props} />;
 };
+
+export const ClearButton = ({ title, ...props }: WordPressIconButtonProps) => {
+    const { translateString } = props.registry;
+    const text = translateString(TranslatableString.MoveDownButton);
+    return <IconButton icon={arrowDown} isDestructive title={title ? title : text} {...props} />;
+};
