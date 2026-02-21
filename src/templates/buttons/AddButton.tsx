@@ -14,7 +14,7 @@ const AddButton: React.FC<WordPressIconButtonProps> = ({
     ...props
 }) => {
     const { translateString } = registry;
-    const text = translateString(TranslatableString.AddItemButton);
+    const text = props.text ?? translateString(TranslatableString.AddItemButton);
     return (
         <Button
             className={`rjsf-add-button ${className || ''}`}
