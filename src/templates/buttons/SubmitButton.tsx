@@ -11,8 +11,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
 
     return (
         <div className="rjsf-submit-button-wrapper">
-            <Button type="submit" variant="primary" {...submitButtonProps}>
-                {submitText}
+            <Button type="submit" text={submitText} variant="primary" {...submitButtonProps}>
             </Button>
         </div>
     );
