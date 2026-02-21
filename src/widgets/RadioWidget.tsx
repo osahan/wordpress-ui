@@ -1,63 +1,62 @@
 import React from 'react';
-import { RadioControl } from '@wordpress/components';
 import type { WidgetProps } from '@rjsf/utils';
+import { RadioControl } from '@wordpress/components';
 
 const RadioWidget: React.FC<WidgetProps> = ({
-  id,
-  value,
-  required,
-  disabled,
-  readonly,
-  label,
-  onChange,
-  onBlur,
-  onFocus,
-  rawErrors = [],
-  schema,
-  uiSchema,
-  options = {},
+    disabled,
+    id,
+    label,
+    onBlur,
+    onChange,
+    onFocus,
+    options = {},
+    rawErrors = [],
+    readonly,
+    required,
+    schema,
+    uiSchema,
+    value,
 }) => {
-  const handleChange = (val: string) => {
-    onChange(val === '' ? options.emptyValue ?? '' : val);
-  };
+    const handleChange = (val: string) => {
+        onChange(val === '' ? (options.emptyValue ?? '') : val);
+    };
 
-  const handleBlur = () => {
-    onBlur(id, value);
-  };
+    const handleBlur = () => {
+        onBlur(id, value);
+    };
 
-  const handleFocus = () => {
-    onFocus(id, value);
-  };
+    const handleFocus = () => {
+        onFocus(id, value);
+    };
 
-  // Get help text from uiSchema or options
-  const helpText = uiSchema?.['ui:help'] || options.help || schema.description;
+    // Get help text from uiSchema or options
+    const helpText = uiSchema?.['ui:help'] || options.help || schema.description;
 
-  // Get label from uiSchema, label prop, or schema title
-  const widgetLabel = label || uiSchema?.['ui:title'] || schema.title || '';
+    // Get label from uiSchema, label prop, or schema title
+    const widgetLabel = label || uiSchema?.['ui:title'] || schema.title || '';
 
-  // Transform enumOptions to RadioControl format
-  const radioOptions =
-    options.enumOptions?.map((option: { label: string; value: string | number }) => ({
-      label: option.label,
-      value: String(option.value),
-    })) || [];
+    // Transform enumOptions to RadioControl format
+    const radioOptions =
+        options.enumOptions?.map((option: { label: string; value: number | string }) => ({
+            label: option.label,
+            value: String(option.value),
+        })) || [];
 
-  return (
-    <RadioControl
-      id={id}
-      label={widgetLabel}
-      selected={value ? String(value) : ''}
-      required={required}
-      disabled={disabled || readonly}
-      options={radioOptions}
-      onChange={handleChange}
-      onBlur={handleBlur}
-      onFocus={handleFocus}
-      help={helpText}
-      className={rawErrors.length > 0 ? 'has-error' : ''}
-    />
-  );
+    return (
+        <RadioControl
+            className={rawErrors.length > 0 ? 'has-error' : ''}
+            disabled={disabled || readonly}
+            help={helpText}
+            id={id}
+            label={widgetLabel}
+            onBlur={handleBlur}
+            onChange={handleChange}
+            onFocus={handleFocus}
+            options={radioOptions}
+            required={required}
+            selected={value ? String(value) : ''}
+        />
+    );
 };
 
 export default RadioWidget;
-

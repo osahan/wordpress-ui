@@ -1,5 +1,5 @@
-require('@testing-library/jest-dom');
-const React = require('react');
+import '@testing-library/jest-dom';
+import React from 'react';
 
 // Mock WordPress components
 jest.mock('@wordpress/components', () => {

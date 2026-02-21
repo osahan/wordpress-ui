@@ -21,7 +21,7 @@ const AddButton: React.FC<WordPressIconButtonProps> = ({
             icon={create}
             style={{ width: '100%', ...style }}
             text={text}
-            title={title? title : text}
+            title={title ? title : text}
             variant="secondary"
             {...props}
         ></Button>
