@@ -80,6 +80,7 @@
     "moduleNameMapper": {
       "\\.(css|less|scss|sass)$": "identity-obj-proxy"
     },
+    "modulePathIgnorePatterns": ["<rootDir>/dist"],
     "transform": {
       "^.+\\.[jt]sx?$": [
         "ts-jest",
