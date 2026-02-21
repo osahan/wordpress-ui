@@ -1,8 +1,10 @@
 import React from 'react';
 import { buttonId, ADDITIONAL_PROPERTY_FLAG, type WrapIfAdditionalTemplateProps } from '@rjsf/utils';
 
-/** The `WrapIfAdditional` component is used by the `FieldTemplate` to rename, or remove properties that are
- * part of an `additionalProperties` part of a schema.
+/**
+ * The `WrapIfAdditional` component is used by the `FieldTemplate` to rename,
+ * or remove properties that are part of an `additionalProperties` part of a
+ * schema.
  *
  * @param props - The `WrapIfAdditionalProps` for this component
  */
